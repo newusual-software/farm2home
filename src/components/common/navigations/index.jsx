@@ -4,7 +4,7 @@ import { navigationLinks } from "../../molecule/navLinks/navigationLinks";
 
 const Navigations = () => {
   return (
-    <div className="flex py-6 px-8 font-workSans sticky top-2 left-0 w-full justify-between items-center">
+    <div className="flex z-[999] bg-[#f4f4f4] rounded-lg py-6 px-8 font-workSans sticky top-2 left-0 w-[95%] mx-auto justify-between items-center">
       <DesktopNavigation navigationItems={navigationLinks} />
     </div>
     // <div className="flex w-full largeTablet:hidden">
