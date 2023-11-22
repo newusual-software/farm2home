@@ -1,5 +1,5 @@
 import DesktopNavigation from "./desktopNavigation";
-import { navigationLinks } from "../../molecule/navLinks/navigationLinks";
+import { navigationLinks } from "../../../data/navLinks/navigationLinks";
 // import MobileNavigation from "./mobileNavigation";
 
 const Navigations = () => {
