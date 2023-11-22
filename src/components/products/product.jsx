@@ -1,38 +1,77 @@
-import { Fragment } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { STATIC_PRODUCTS } from "./productList";
 import ProductItem from "./productItem";
+import { Link } from "react-router-dom";
 
 const Loader = () => {
-  return <div>loading...</div>;
+  return <div>Loading...</div>;
 };
+
 export default function ProductsList() {
-  let generalProduct = STATIC_PRODUCTS;
-  console.log(generalProduct);
+  const [loading, setLoading] = useState(true);
+  const [generalProduct, setGeneralProduct] = useState([]);
+
+  useEffect(() => {
+    // Simulate an API call to fetch data
+    setTimeout(() => {
+      setGeneralProduct(STATIC_PRODUCTS);
+      setLoading(false);
+    }, 2000); // Adjust the time as needed
+  }, []);
+
+  // Group products by category
+  const groupedProducts = generalProduct.reduce((acc, product) => {
+    const { category } = product;
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(product);
+    return acc;
+  }, {});
+
+  // Extract categories and products
+  const categories = Object.keys(groupedProducts);
+  const uncategorizedProducts = groupedProducts[undefined] || [];
+
   return (
     <>
-      <div className="my-20 px-5  place-items-center grid sm:grid-cols-2 gap-5 grid-cols-1 md:grid-cols-3 xl:grid-cols-4">
-        {generalProduct == undefined ? (
-          <Loader />
-        ) : (
-          generalProduct.map(
-            ({ category, name, price, dealPrice, ratingStar, imgUrl }, i) => (
-              <Fragment key={i}>
-                <ProductItem
-                  category={category}
-                  name={name}
-                  price={price}
-                  deal={dealPrice}
-                  rating={ratingStar}
-                  imgUrl={imgUrl}
-                />
-              </Fragment>
-            )
-          )
-        )}
+      {loading && <Loader />}
+
+      <div className={`my-14 grid grid-cols-1 ${loading ? "hidden" : ""}`}>
+        {/* Render all uncategorized products in a single row */}
+        <div className="flex overflow-x-auto mb-6 flex-row">
+          {uncategorizedProducts.map(({ id, ...rest }, i) => (
+            <Fragment key={i}>
+              <ProductItem id={id} {...rest} />
+            </Fragment>
+          ))}
+        </div>
+
+        {/* Render categorized products in rows */}
+        {categories.map((category, index) => (
+          <div key={index} className="mb-6">
+            <div className="flex justify-between flex-row mb-6 items-center px-5">
+              <div >
+                <h2 className="text-xl font-workSans font-bold text-mainGreen  ">
+                  {category}
+                </h2>
+              </div>
+              <div>
+                <Link to="/" className="px-4 py-2 rounded-md text-mainGreen bg-transparent border border-green-900">
+                  See more 
+                </Link>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              {groupedProducts[category].map(({ id, ...rest }, i) => (
+                <Fragment key={i}>
+                  <ProductItem id={id} {...rest} />
+                </Fragment>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
-      <button className="mx-auto block bg-green-100 font-dmSan text-sm font-medium text-white md:text-base">
-        Next Page
-      </button>
     </>
   );
 }
