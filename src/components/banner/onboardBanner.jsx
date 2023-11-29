@@ -4,11 +4,12 @@ const OnboardBanner = ({pageName}) => {
     <div
       className="w-full 
             z-10
+            
             object-cover 
             bg-cover bg-no-repeat 
             bg-center 
-            h-cover
-            bg-[url('https://res.cloudinary.com/phantom1245/image/upload/v1701270702/farm2home/Frame_178_vyyjdd.png')]
+            h-52
+            bg-[url('https://res.cloudinary.com/phantom1245/image/upload/v1701277997/farm2home/unsplash_o5dBeMnuJUk_psi3sp.png')]
             flex 
             flex-col 
             justify-center"

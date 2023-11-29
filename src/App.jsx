@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/store" element={<Store />} />
+          <Route path="/our-store" element={<Store />} />
         </Routes>
       </Router>
       <FooterWithSitemap />
