@@ -1,9 +1,9 @@
 export const navigationLinks = [
       { url: "/", label: "Home" },
-      { url: "/about-us", label: "About Us" },
-      { url: "/store", label: "store" },
-      { url: "/help", label: "Help" },
-      { url: "/cart", label: "cart" },
+      { url: "about-us", label: "About Us" },
+      { url: "store", label: "store" },
+      { url: "help", label: "Help" },
+      { url: "cart", label: "cart" },
     ];
 export const itemsNavigationLinks = [
   { url: "/", label: "Most recent" },
