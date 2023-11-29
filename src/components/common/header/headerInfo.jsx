@@ -2,8 +2,12 @@ const HeaderInfo = () => {
     return (
       <div className="bg-mainGreen text-white captalize w-full h-[70px] flex justify-between px-[3rem] items-center">
         <div>
-          <a href="/" className="font-worksans  font-semibold text-lg">
-            company logo
+          <a href="/">
+            <img
+              src="https://res.cloudinary.com/phantom1245/image/upload/v1701274150/farm2home/20231129_163322-removebg-preview_e3ppek.png"
+              alt="logo"
+              className="w-[10rem] "
+            />
           </a>
         </div>
         <div className="flex justify-center items-center gap-[2rem]">

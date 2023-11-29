@@ -6,7 +6,15 @@ export function FooterWithSitemap() {
   return (
     <footer className="relative w-full bg-mainGreen text-white">
       <div className="mx-auto w-full max-w-7xl px-8">
-        <h1 className="pt-10 pb-5">company logo</h1>
+        <div className="pt-10 pb-5">
+          <a href="/">
+            <img
+              src="https://res.cloudinary.com/phantom1245/image/upload/v1701274150/farm2home/20231129_163322-removebg-preview_e3ppek.png"
+              alt="logo"
+              className="w-[10rem] "
+            />
+          </a>
+        </div>
         <div className="mx-auto grid w-full grid-cols-1 gap-8 pb-12 md:grid-cols-2 lg:grid-cols-4">
           {SITEMAP.map(({ title, links }, key) => (
             <div key={key} className="w-full">

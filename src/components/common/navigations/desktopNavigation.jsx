@@ -7,8 +7,12 @@ const DesktopNavigation = ({ navigationItems }) => {
 
   const location = window.location.pathname;
   const getProperStyle = (link) => {
-    if (location.includes(link.url)) {
+    if (location.slice(1).includes(link.url)) {
       return ` ${activeLinkStyle} ${defaultStyle}`;
+    }
+    else if ("/".includes(link.url) === location[0]) {
+     return ` ${activeLinkStyle} ${defaultStyle}`;
+
     }
     return defaultStyle;
   };
