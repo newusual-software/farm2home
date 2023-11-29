@@ -4,7 +4,7 @@ import TabListItem from "./tabListItems";
 const TabList = ({ tabList, pageId, selectedTab }) => {
 
   return (
-    <nav className="flex w-full overflow-x-auto overflow-y-hidden gap-2 px-14 pt-3">
+    <nav className="flex w-full overflow-x-auto overflow-y-hidden gap-2 pt-3">
       {tabList.map((tab, index) => (
         <div
           key={index}

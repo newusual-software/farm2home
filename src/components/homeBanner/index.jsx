@@ -20,7 +20,7 @@ const HomeBanner = () => {
             pl-8 h-[30rem] 
             bg-cover bg-no-repeat 
             bg-center 
-            bg-[url('https://res.cloudinary.com/phantom1245/image/upload/v1700385848/farm2home/Frame_11_apx4c7.png')] flex flex-col justify-center"
+            bg-[url('https://res.cloudinary.com/phantom1245/image/upload/v1701257726/farm2home/Frame_11_1_zdscjt.png')] flex flex-col justify-center"
       >
         <div className="gap-3 text-white">
           <h1 className="text-5xl w-[70%] font-workSans font-bold ">Rooted in Quality, Delivered with Passion</h1>

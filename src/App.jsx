@@ -1,3 +1,4 @@
+import { FooterWithSitemap } from "./components/common/footer/footer.jsx";
 import Header from "./components/common/header";
 import Home from "./pages/homePage.jsx"
 
@@ -12,7 +13,7 @@ function App() {
           <Route path="/" element={<Home />} />
         </Routes>
       </Router>
-       
+      <FooterWithSitemap/>
     </>
   );
 }
