@@ -36,7 +36,7 @@ export default function ProductItem({
   ));
 
   return (
-    <div className="flex gap-2 md:max-w-xl w-[80%] max-w-md mx-auto cursor-pointer flex-col justify-between rounded-2xl bg-white shadow-md transition-transform ease-in hover:translate-y-2">
+    <div className="flex gap-2 md:max-w-xl w-[90%] max-w-md mx-auto cursor-pointer flex-col justify-between rounded-2xl bg-white shadow-md transition-transform ease-in hover:translate-y-2">
       <div className="md:flex-shrink-0 max-w-max">
         <a href={`product/${id}`}>
           <img
