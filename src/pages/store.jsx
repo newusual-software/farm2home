@@ -63,9 +63,9 @@ const Store = () => {
   return (
     <OnboardLayout>
       <Breadcrumb categories={selectedCategories} />
-      <div className="flex gap-5 mt-7 font-workSans">
+      <div className="flex w-full gap-3 mt-7 font-workSans">
         {/* Sidebar with checkboxes for categories */}
-        <div className="mr-4 bg-white w-[22rem] h-[20rem] p-4 rounded-lg">
+        <div className="mr-4 bg-white w-[25%] h-[20rem] p-4 rounded-lg">
           <h3 className="mb-4 font-bold">Categories</h3>
           <ul>
             {categories.map((category, index) => (
@@ -91,7 +91,7 @@ const Store = () => {
             ))}
           </ul>
         </div>
-        <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-4 gap-2 w-[80%]">
           {data.map((data, index) => (
             <div key={index} className="mb-6">
               <ProductItem {...data} />

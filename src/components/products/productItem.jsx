@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
 import { useState } from "react";
+import { truncateString } from "../../lib/util/truncateString";
 
 export default function ProductItem({
   product_des,
@@ -16,6 +17,10 @@ export default function ProductItem({
   const handleStarClick = (clickedRating) => {
     setRating(clickedRating);
   };
+
+  // Truncate product_des and product_name
+  const truncatedProductDes = truncateString(product_des, 25);
+  const truncatedProductName = truncateString(product_name, 15);
 
   // Filled stars
   const ratedStars = Array.from({ length: rating }, (_, i) => (
@@ -37,12 +42,12 @@ export default function ProductItem({
   ));
 
   return (
-    <div className="flex gap-2 md:max-w-xl w-[90%] max-w-md mx-auto cursor-pointer flex-col justify-between rounded-2xl bg-white shadow-md transition-transform ease-in hover:translate-y-2">
+    <div className="flex gap-2 md:max-w-2xl w-full max-w-md mx-auto cursor-pointer flex-col justify-between rounded-2xl bg-white shadow-md transition-transform ease-in hover:translate-y-2">
       <div className="md:flex-shrink-0 max-w-max">
         <a href={`product/${_id}`}>
           <img
             src={product_image}
-            alt={product_name}
+            alt={truncatedProductName}
             className="rounded-lg h-auto w-80 object-contain md:w-72"
           />
         </a>
@@ -51,7 +56,7 @@ export default function ProductItem({
         <div className="flex justify-between items-center">
           <a href={`product/${_id}`}>
             <div className="font-roboto text-base font-semibold text-mainGreen md:text-xl">
-              {product_name}
+              {truncatedProductName}
             </div>
           </a>
           <div className="pr-1">
@@ -63,8 +68,8 @@ export default function ProductItem({
             </a>
           </div>
         </div>
-        <a href={`product/${_id}`} className="text-[#7B7B7B] text-sm py-2">
-          {product_des}
+        <a href={`product/${_id}`}  className=" text-[#7B7B7B] text-md py-2 w-[6rem]">
+            {truncatedProductDes}
         </a>
 
         <hr className="my-2" />
