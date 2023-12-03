@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect } from "react";
-import { STATIC_PRODUCTS } from "./productList";
+import { STATIC_PRODUCTS } from "../../data/product/productList";
 import ProductItem from "./productItem";
 import { Link } from "react-router-dom";
 
@@ -62,7 +62,7 @@ export default function ProductsList() {
                 </Link>
               </div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               {groupedProducts[category].map(({ id, ...rest }, i) => (
                 <Fragment key={i}>
                   <ProductItem id={id} {...rest} />
