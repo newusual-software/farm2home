@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect } from "react";
-import { STATIC_PRODUCTS } from "./productList";
+import { STATIC_PRODUCTS } from "../../data/product/productList";
 import ProductItem from "./productItem";
 import { Link } from "react-router-dom";
 

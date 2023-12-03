@@ -8,7 +8,6 @@ export default function OnboardLayout({ children }) {
 
   // Replace "-" with a space
   const formattedText = trimmedPath.replace(/-/g, " ");
-  console.log(formattedText)
 
   return (
     <div>

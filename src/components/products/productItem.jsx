@@ -2,12 +2,13 @@ import { Icon } from "@iconify/react";
 import { useState } from "react";
 
 export default function ProductItem({
-  name,
-  price,
-  imgUrl,
-  description,
+  product_des,
+  product_price,
+  product_image,
+
+  product_name,
   initialRating,
-  id,
+  _id,
 }) {
   const [rating, setRating] = useState(initialRating);
 
@@ -38,19 +39,19 @@ export default function ProductItem({
   return (
     <div className="flex gap-2 md:max-w-xl w-[90%] max-w-md mx-auto cursor-pointer flex-col justify-between rounded-2xl bg-white shadow-md transition-transform ease-in hover:translate-y-2">
       <div className="md:flex-shrink-0 max-w-max">
-        <a href={`product/${id}`}>
+        <a href={`product/${_id}`}>
           <img
-            src={imgUrl}
-            alt={name}
+            src={product_image}
+            alt={product_name}
             className="rounded-lg h-auto w-80 object-contain md:w-72"
           />
         </a>
       </div>
       <div className="px-4">
         <div className="flex justify-between items-center">
-          <a href={`product/${id}`}>
+          <a href={`product/${_id}`}>
             <div className="font-roboto text-base font-semibold text-mainGreen md:text-xl">
-              {name}
+              {product_name}
             </div>
           </a>
           <div className="pr-1">
@@ -62,14 +63,14 @@ export default function ProductItem({
             </a>
           </div>
         </div>
-        <a href={`product/${id}`} className="text-[#7B7B7B] text-sm py-2">
-          {description}
+        <a href={`product/${_id}`} className="text-[#7B7B7B] text-sm py-2">
+          {product_des}
         </a>
 
         <hr className="my-2" />
         <div className="flex justify-between py-3 flex-wrap">
           <div className="flex gap-2 font-openSan font-semibold">
-            <p className="text-[#000]">&#x20A6;{price}</p>
+            <p className="text-[#000]">&#x20A6;{product_price}</p>
           </div>
           <div className="flex">{[...ratedStars, ...emptyStars]}</div>{" "}
         </div>
