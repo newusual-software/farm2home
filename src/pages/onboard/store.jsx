@@ -1,10 +1,10 @@
 import { useState } from "react";
-import Breadcrumb from "../components/molecule/breadcrumbs/breadcrumbs";
-import ProductItem from "../components/products/productItem";
-import { STATIC_PRODUCTS } from "../data/product/productList";
-import OnboardLayout from "../layouts/onboardLayout";
-import useApiFetcher from "../lib/hooks/useApiFetcher";
-import HomeAds from "../components/ads/homeAds";
+import Breadcrumb from "../../components/molecule/breadcrumbs/breadcrumbs";
+import ProductItem from "../../components/products/productItem";
+import { STATIC_PRODUCTS } from "../../data/product/productList";
+import OnboardLayout from "../../layouts/onboardLayout";
+import useApiFetcher from "../../lib/hooks/useApiFetcher";
+import HomeAds from "../../components/ads/homeAds";
 
 
 const Store = () => {
@@ -42,7 +42,7 @@ const Store = () => {
   if (!data) {
     return <div>Loading...</div>;
   }
-
+console.log(data)
   const categories = [
     "All",
     "Roots and Tubers",
@@ -91,10 +91,14 @@ const Store = () => {
             ))}
           </ul>
         </div>
-        <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-4 gap-2 w-[80%]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {data.map((data, index) => (
             <div key={index} className="mb-6">
-              <ProductItem {...data} />
+              <ProductItem
+                {...data}
+                productNameMaxLength={9}
+                productDesMaxLength={35}
+              />
             </div>
           ))}
         </div>

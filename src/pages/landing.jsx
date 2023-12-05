@@ -6,7 +6,7 @@ import ProductsList from "../components/products/product";
 import Testimonial from "../components/testimonial/testimonial";
 import HomeAds from "../components/ads/homeAds";
 
-const Home = () => {
+const Landing = () => {
     const selectedTab = "Most recent";
     return (
       <>
@@ -24,4 +24,4 @@ const Home = () => {
     );
 }
  
-export default Home;
+export default Landing;

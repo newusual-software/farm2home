@@ -1,4 +1,4 @@
-import OnboardLayout from "../layouts/onboardLayout";
+import OnboardLayout from "../../layouts/onboardLayout";
 
 const AboutUs = () => {
     return (

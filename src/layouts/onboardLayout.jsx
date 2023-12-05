@@ -13,7 +13,7 @@ export default function OnboardLayout({ children }) {
     <div>
       <Navigations />
       <OnboardBanner pageName={formattedText} />
-      <main className="px-20 py-12">{children}</main>
+      <main className="px-14 py-12">{children}</main>
     </div>
   );
 }

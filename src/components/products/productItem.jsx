@@ -6,7 +6,8 @@ export default function ProductItem({
   product_des,
   product_price,
   product_image,
-
+  productNameMaxLength,
+  productDesMaxLength,
   product_name,
   initialRating,
   _id,
@@ -19,8 +20,16 @@ export default function ProductItem({
   };
 
   // Truncate product_des and product_name
-  const truncatedProductDes = truncateString(product_des, 25);
-  const truncatedProductName = truncateString(product_name, 15);
+  const truncatedProductDes = truncateString(
+    product_des,
+    productDesMaxLength,
+    product_des
+  );
+  const truncatedProductName = truncateString(
+    product_name,
+    productNameMaxLength,
+    product_name
+  );
 
   // Filled stars
   const ratedStars = Array.from({ length: rating }, (_, i) => (
@@ -55,7 +64,10 @@ export default function ProductItem({
       <div className="px-4">
         <div className="flex justify-between items-center">
           <a href={`product/${_id}`}>
-            <div className="font-roboto text-base font-semibold text-mainGreen md:text-xl">
+            <div
+              title={product_name}
+              className="font-roboto text-base font-semibold text-mainGreen md:text-xl"
+            >
               {truncatedProductName}
             </div>
           </a>
@@ -68,9 +80,13 @@ export default function ProductItem({
             </a>
           </div>
         </div>
-        <a href={`product/${_id}`}  className=" text-[#7B7B7B] text-md py-2 w-[6rem]">
-            {truncatedProductDes}
-        </a>
+        <div
+          title={product_des}
+          className="w-[10rem] text-[#7B7B7B] text-md py-2"
+        >
+          {truncatedProductDes}
+        </div>  
+        
 
         <hr className="my-2" />
         <div className="flex justify-between py-3 flex-wrap">
