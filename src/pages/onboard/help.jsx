@@ -1,9 +1,10 @@
+import Faq from "../../components/molecule/faq/faq";
 import OnboardLayout from "../../layouts/onboardLayout";
 
 const Help = () => {
     return ( 
         <OnboardLayout>
-            testing 1212
+            <Faq />
         </OnboardLayout>
      );
 }

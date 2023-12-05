@@ -1,10 +1,10 @@
 export const navigationLinks = [
-      { url: "/", label: "Home" },
-      { url: "about-us", label: "About Us" },
-      { url: "our-store", label: "store" },
-      { url: "help", label: "Help" },
-      { url: "cart", label: "cart" },
-    ];
+  { url: "/", label: "Home" },
+  { url: "about-us", label: "About Us" },
+  { url: "our-store", label: "store" },
+  { url: "help", label: "Help" },
+  { url: "contact", label: "contact" },
+];
 export const itemsNavigationLinks = [
   { url: "/", label: "Most recent" },
   { url: "/root-and-tuber", label: "Roots and Tubers" },

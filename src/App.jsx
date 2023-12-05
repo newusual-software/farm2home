@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Store from "./pages/onboard/store.jsx";
 import Landing from "./pages/landing.jsx";
 import Help from "./pages/onboard/help.jsx";
+import Contact from "./pages/onboard/contact.jsx";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/our-store" element={<Store />} />
           <Route path="/help" element={<Help />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </Router>
       <FooterWithSitemap />
