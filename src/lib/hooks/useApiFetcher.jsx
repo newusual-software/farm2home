@@ -7,26 +7,27 @@ const useApiFetcher = (apiUrl, headers = {}, method="") => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+      const fetchDataFromApi = async () => {
+        try {
+          const jsonData = await fetchData(apiUrl, headers, method);
+          setData(jsonData);
+        } catch (error) {
+          setError(error.message);
+        }
+      };
     fetchDataFromApi();
   // Start polling every 10 seconds
     const pollingInterval = setInterval(() => {
       fetchDataFromApi();
-    }, 10000); // 10 seconds
+    }, 8000); // 10 seconds
 
     // Clean up the interval when the component unmounts
     return () => {
       clearInterval(pollingInterval);
     };
     
-  }, []);
-  const fetchDataFromApi = async () => {
-      try {
-        const jsonData = await fetchData(apiUrl, headers, method);
-        setData(jsonData);
-      } catch (error) {
-        setError(error.message);
-      }
-    };
+  }, [apiUrl, headers, method]);
+
   return { data, error };
 };
 

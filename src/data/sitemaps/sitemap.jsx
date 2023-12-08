@@ -17,7 +17,7 @@ export const SITEMAP = [
     title: "Quick Links",
     links: [
       { label: "Sign Up", targetLink: "/sign-up" },
-      { label: "Log In", targetLink: "/log-in" },
+      { label: "Log In", targetLink: "/sign-in" },
       { label: "About Us", targetLink: "/about-us" },
       { label: "Contact Us", targetLink: "/contact-us" },
       { label: "FAQs", targetLink: "/faqs" },
