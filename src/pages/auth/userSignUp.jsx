@@ -1,6 +1,8 @@
+import AuthLayout from "../../layouts/authLayout";
+
 const UserSignUp = () => {
   return (
-    <div className="w-[60%] mx-auto flex flex-col   my-8 ">
+    <AuthLayout>
       <h2 className="text-xl font-semibold font-workSans mb-4">
         Create an Account
       </h2>
@@ -124,7 +126,7 @@ const UserSignUp = () => {
           type="submit"
           className="bg-mainGreen w-full text-center text-white py-3 px-5 rounded-md hover:bg-green-600 mt-4"
         >
-          Send Message
+          Create an Account
         </button>
         <div className="relative flex w-[90%] mx-auto flex-row py-6 ">
           <div className=" w-full inline-flex items-center text-xs align-middle">
@@ -172,7 +174,7 @@ const UserSignUp = () => {
           </div>
         </div>
       </form>
-    </div>
+    </AuthLayout>
   );
 };
 
