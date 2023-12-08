@@ -25,7 +25,7 @@ const Store = () => {
     
   const method = "GET";
 
-  const headers = {}; // Add any headers if needed
+  const headers = {}; // Add any headers if needed  
 
   let { data, error } = useApiFetcher(
     getApiUrl(selectedCategories),
@@ -35,7 +35,6 @@ const Store = () => {
 
   if (error) {
     console.error(error);
-
     data = STATIC_PRODUCTS;
   }
 
