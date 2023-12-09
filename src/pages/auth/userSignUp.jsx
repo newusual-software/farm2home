@@ -1,12 +1,87 @@
+import { useState } from "react";
 import AuthLayout from "../../layouts/authLayout";
+import { postDataApi } from "../../lib/util/postApiUtils";
 
 const UserSignUp = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: 0,
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [passwordError, setPasswordError] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+
+    if (name === "password" || name === "confirmPassword") {
+      setFormData((prevFormData) => {
+        if (name === "password" && value.length < 6) {
+          setPasswordError("Password must be at least 6 characters");
+        } else if (
+          name === "confirmPassword" &&
+          value !== prevFormData.password
+        ) {
+          setPasswordError("Passwords do not match");
+        } else {
+          setPasswordError("");
+        }
+        return prevFormData;
+      });
+    }
+  };
+
+  // Function to make a POST request
+  const postData = async () => {
+    const apiUrl = "create";
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    const method = "POST";
+
+    // Data to be sent in the request body
+    const postData = {
+
+      first_name: formData.firstName,
+      last_name:formData.lastName,
+      email: formData.email,
+      password: formData.confirmPassword
+    };
+    try {
+      const response = await postDataApi(apiUrl, headers, method, postData);
+      console.log("Response:", response);
+      // Handle the response data as needed
+    } catch (error) {
+      console.error("Error:", error.message);
+      // Handle the error
+    }
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Check if there are any validation errors before submitting the form
+    if (passwordError) {
+      console.log("Form has validation errors");
+      return;
+    }
+    postData();
+    // Proceed with form submission
+    console.log("Form submitted:", formData);
+  };
+
   return (
     <AuthLayout>
       <h2 className="text-xl font-semibold font-workSans mb-4">
         Create an Account
       </h2>
-      <form className="bg-white rounded-lg p-8">
+      <form className="bg-white rounded-lg p-8" onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row gap-4 md:gap-5">
           <div className=" w-full md:w-1/2">
             <label
@@ -20,6 +95,8 @@ const UserSignUp = () => {
               id="firstName"
               name="firstName"
               required
+              value={formData.firstName}
+              onChange={handleChange}
               placeholder="Enter your first name"
               className="w-full p-2 border-2 mt-2 rounded-lg outline-none border-[#7B7B7B] border-opacity-50 mb-4"
             />
@@ -37,6 +114,8 @@ const UserSignUp = () => {
               name="lastName"
               placeholder="Enter your last name"
               required
+              value={formData.lastName}
+              onChange={handleChange}
               className="w-full p-2 border-2 mt-2 rounded-lg outline-none border-[#7B7B7B] border-opacity-50 mb-4"
             />
           </div>
@@ -55,6 +134,8 @@ const UserSignUp = () => {
               name="email"
               required
               placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
               className="w-full p-2 border-2 mt-2 rounded-lg outline-none border-[#7B7B7B] border-opacity-50 mb-4"
             />
           </div>
@@ -70,8 +151,10 @@ const UserSignUp = () => {
             <input
               type="number"
               id="phone number"
-              name="phone number"
+              name="phoneNumber"
               required
+              value={formData.phoneNumber}
+              onChange={handleChange}
               placeholder="Enter your Phone Number"
               className="w-full p-2 border-2 mt-2 rounded-lg outline-none border-[#7B7B7B] border-opacity-50 mb-4"
             />
@@ -88,9 +171,11 @@ const UserSignUp = () => {
             </label>
             <input
               type="password"
-              id="firstName"
-              name="firstName"
+              id="password"
+              name="password"
               required
+              value={formData.password}
+              onChange={handleChange}
               placeholder="Enter your Password"
               className="w-full p-2 border-2 mt-2 rounded-lg outline-none border-[#7B7B7B] border-opacity-50 mb-4"
             />
@@ -104,13 +189,18 @@ const UserSignUp = () => {
             </label>
             <input
               type="password"
-              id="lastName"
-              name="lastName"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
               placeholder="Enter your Confirm Password"
               required
               className="w-full p-2 border-2 mt-2 rounded-lg outline-none border-[#7B7B7B] border-opacity-50 mb-4"
             />
           </div>
+          {passwordError && (
+            <p className="text-red-500 text-sm">{passwordError}</p>
+          )}
         </div>
         <div className="w-full flex items-center  justify-center ">
           <div className=" text-[#000] font-workSans font-normal text-[16px] py-3 w-full">
