@@ -13,13 +13,13 @@ export const postDataApi = (apiUrl, postDataInfo, setLoading) => {
         // Log the full response text when an error occurs
         return response.text();
       }
-      return response.json();
+      return response.text();
     })
     .then((data) => {
       console.log("Server response:", data);
     })
     .catch((error) => {
-      console.error("Error during JSON parsing or server response:", error);
+      console.error(" server response:", error);
     })
     .finally(() => {
       setLoading(false);
