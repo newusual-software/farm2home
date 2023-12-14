@@ -1,32 +1,27 @@
-export const postDataApi = async (apiUrl, headers, method, postData) => {
+export const postDataApi = (apiUrl, postDataInfo, setLoading) => {
   const baseUrl = "https://e-commerce-api-51vp.onrender.com" || "";
   const url = `${baseUrl}/${apiUrl}`;
-
-  const requestOptions = {
-    method: method,
+  return fetch(url, {
+    method: "POST",
     headers: {
-      accept: "application/json",
-      ...headers,
+      "Content-Type": "application/json",
     },
-  };
-
-  if (postData) {
-    requestOptions.body = JSON.stringify(postData);
-  }
-
-  const res = await fetch(url, requestOptions);
-
-  if (!res.ok) {
-    let errorData = {};
-    try {
-      errorData = await res.json();
-    } catch (error) {
-      // Handle non-JSON error responses
-      throw new Error(`${res.status} ${res.statusText}: ${res.text()}`);
-    }
-
-    throw new Error(`${res.status} ${res.statusText}: ${JSON.stringify(errorData)}`);
-  }
-
-  return res.json();
+    body: JSON.stringify(postDataInfo),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        // Log the full response text when an error occurs
+        return response.text();
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Server response:", data);
+    })
+    .catch((error) => {
+      console.error("Error during JSON parsing or server response:", error);
+    })
+    .finally(() => {
+      setLoading(false);
+    });
 };

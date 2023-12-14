@@ -7,12 +7,13 @@ const UserSignUp = () => {
     firstName: "",
     lastName: "",
     email: "",
-    phoneNumber: 0,
+    phoneNumber: "",
     password: "",
     confirmPassword: "",
   });
 
   const [passwordError, setPasswordError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,42 +39,29 @@ const UserSignUp = () => {
     }
   };
 
-  // Function to make a POST request
-  const postData = async () => {
-    const apiUrl = "create";
-    const headers = {
-      "Content-Type": "application/json",
-    };
-    const method = "POST";
-
-    // Data to be sent in the request body
-    const postData = {
-
-      first_name: formData.firstName,
-      last_name:formData.lastName,
-      email: formData.email,
-      password: formData.confirmPassword
-    };
-    try {
-      const response = await postDataApi(apiUrl, headers, method, postData);
-      console.log("Response:", response);
-      // Handle the response data as needed
-    } catch (error) {
-      console.error("Error:", error.message);
-      // Handle the error
-    }
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
+    const apiUrl = "create";
 
+    const postDataInfo = {
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      email: formData.email,
+      password: formData.confirmPassword,
+      phone_number: formData.phoneNumber,
+    };
     // Check if there are any validation errors before submitting the form
-    if (passwordError) {
-      console.log("Form has validation errors");
+    if (passwordError || loading) {
+      console.log("Form has validation errors or is loading");
       return;
     }
-    postData();
-    // Proceed with form submission
-    console.log("Form submitted:", formData);
+
+    setLoading(true);
+     postDataApi(
+       apiUrl,
+       postDataInfo,
+       setLoading
+     );
   };
 
   return (
@@ -215,8 +203,9 @@ const UserSignUp = () => {
         <button
           type="submit"
           className="bg-mainGreen w-full text-center text-white py-3 px-5 rounded-md hover:bg-green-600 mt-4"
+          disabled={loading} // Disable the button while loading
         >
-          Create an Account
+          {loading ? "Creating Account..." : "Create an Account"}
         </button>
         <div className="relative flex w-[90%] mx-auto flex-row py-6 ">
           <div className=" w-full inline-flex items-center text-xs align-middle">

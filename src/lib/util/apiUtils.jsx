@@ -7,7 +7,7 @@ export const fetchData = async (apiUrl, headers, method) => {
   const res = await fetch(url, {
     method: method,
     headers: {
-      accept: "application/json",
+      "Content-Type": "application/json",
       ...headers,
     },
   });
