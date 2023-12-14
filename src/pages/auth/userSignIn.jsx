@@ -1,10 +1,55 @@
+import { useState } from "react";
 import AuthLayout from "../../layouts/authLayout";
+import { postDataApi } from "../../lib/util/postApiUtils";
 
 const UserSignIn = () => {
+    const [formData, setFormData] = useState({
+      email: "",
+      password: "",
+    });
+
+    const [passwordError, setPasswordError] = useState("");
+    const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+
+    if (name === "password") {
+      // Use value.length instead of formData.confirmPassword
+      if (value.length < 6) {
+        setPasswordError("Password must be at least 6 characters");
+      } else {
+        setPasswordError("");
+      }
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const apiUrl = "login";
+
+    const postDataInfo = {
+      email: formData.email,
+      password: formData.password, // Use formData.password instead of confirmPassword
+    };
+    // Check if there are any validation errors before submitting the form
+    if (passwordError || loading) {
+      console.log("Form has validation errors or is loading");
+      return;
+    }
+
+    setLoading(true);
+    postDataApi(apiUrl, postDataInfo, setLoading);
+  };
+
   return (
     <AuthLayout>
       <h2 className="text-xl font-semibold font-workSans mb-4">Sign In</h2>
-      <form className="bg-white rounded-lg p-8">
+      <form className="bg-white rounded-lg p-8" onSubmit={handleSubmit}>
         <div className=" gap-4 md:gap-5 pt-2">
           <div className="w-full">
             <label
@@ -19,6 +64,8 @@ const UserSignIn = () => {
               name="email"
               required
               placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
               className="w-full p-2 border-2 mt-2 rounded-lg outline-none border-[#7B7B7B] border-opacity-50 mb-4"
             />
           </div>
@@ -35,6 +82,8 @@ const UserSignIn = () => {
               type="password"
               id="password"
               name="password"
+              value={formData.password}
+              onChange={handleChange}
               required
               placeholder="Enter your Password"
               className="w-full p-2 border-2 mt-2 rounded-lg outline-none border-[#7B7B7B] border-opacity-50 mb-4"
@@ -50,8 +99,9 @@ const UserSignIn = () => {
         <button
           type="submit"
           className="bg-mainGreen w-full text-center text-white py-3 px-5 rounded-md hover:bg-green-600 mt-4"
+          disabled={loading} // Disable the button while loading
         >
-          Sign In
+          {loading ? "Signing in..." : "Sign In"}
         </button>
         <div className="relative flex w-[90%] mx-auto flex-row py-6 ">
           <div className=" w-full inline-flex items-center text-xs align-middle">
