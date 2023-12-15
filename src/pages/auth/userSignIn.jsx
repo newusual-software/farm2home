@@ -1,15 +1,18 @@
 import { useState } from "react";
 import AuthLayout from "../../layouts/authLayout";
-import { postDataApi } from "../../lib/util/postApiUtils";
+// import { postDataApi } from "../../lib/util/postApiUtils";
+import { useLoginUserMutation } from "../../services/api";
+import { addUser } from "../../redux/user";
 
 const UserSignIn = () => {
     const [formData, setFormData] = useState({
       email: "",
       password: "",
     });
+    const [ loginUser, { isLoading } ] = useLoginUserMutation();
 
     const [passwordError, setPasswordError] = useState("");
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +31,7 @@ const UserSignIn = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const apiUrl = "login";
 
@@ -37,13 +40,28 @@ const UserSignIn = () => {
       password: formData.password, // Use formData.password instead of confirmPassword
     };
     // Check if there are any validation errors before submitting the form
-    if (passwordError || loading) {
+    if (passwordError || isLoading) {
       console.log("Form has validation errors or is loading");
       return;
     }
 
-    setLoading(true);
-    postDataApi(apiUrl, postDataInfo, setLoading);
+    try {
+      loginUser(postDataInfo)
+       .then(res => {
+         if (res.data) {
+          console.log(res.data);
+            addUser(res.data);
+            navigate("/");
+          } else {
+            alert("Invalid Email or password");
+            return;
+          }
+       })
+       .catch(error => console.log(error))
+    } catch(e) {
+      console.log(e);
+    }
+    
   };
 
   return (
@@ -99,9 +117,9 @@ const UserSignIn = () => {
         <button
           type="submit"
           className="bg-mainGreen w-full text-center text-white py-3 px-5 rounded-md hover:bg-green-600 mt-4"
-          disabled={loading} // Disable the button while loading
+          disabled={isLoading ?  true : false} // Disable the button while loading
         >
-          {loading ? "Signing in..." : "Sign In"}
+          {isLoading ? "Signing in..." : "Sign In"}
         </button>
         <div className="relative flex w-[90%] mx-auto flex-row py-6 ">
           <div className=" w-full inline-flex items-center text-xs align-middle">
