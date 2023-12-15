@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-redux";
 import AuthLayout from "../../layouts/authLayout";
 // import { postDataApi } from "../../lib/util/postApiUtils";
 import { useLoginUserMutation } from "../../services/api";
@@ -10,6 +11,7 @@ const UserSignIn = () => {
       password: "",
     });
     const [ loginUser, { isLoading } ] = useLoginUserMutation();
+    const navigate = useNavigate();
 
     const [passwordError, setPasswordError] = useState("");
     // const [loading, setLoading] = useState(false);
