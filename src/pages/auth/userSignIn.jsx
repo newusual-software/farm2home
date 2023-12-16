@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import AuthLayout from "../../layouts/authLayout";
 // import { postDataApi } from "../../lib/util/postApiUtils";
 import { useLoginUserMutation } from "../../services/api";
 import { addUser } from "../../redux/user";
+import { useDispatch } from "react-redux";
 
 const UserSignIn = () => {
     const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const UserSignIn = () => {
     });
     const [ loginUser, { isLoading } ] = useLoginUserMutation();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [passwordError, setPasswordError] = useState("");
     // const [loading, setLoading] = useState(false);
@@ -51,9 +53,8 @@ const UserSignIn = () => {
       loginUser(postDataInfo)
        .then(res => {
          if (res.data) {
-          console.log(res.data);
-            addUser(res.data);
-            navigate("/");
+            dispatch(addUser(res.data));
+            navigate("/dashboard");
           } else {
             alert("Invalid Email or password");
             return;

@@ -1,10 +1,12 @@
 import { FooterWithSitemap } from "./components/common/footer/footer.jsx";
+import ProtectedRoute from "./components/protectedRoute";
 import Header from "./components/common/header";
 import AboutUs from "./pages/onboard/aboutUs.jsx";
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Store from "./pages/onboard/store.jsx";
 import Landing from "./pages/landing.jsx";
+import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import Help from "./pages/onboard/help.jsx";
 import Contact from "./pages/onboard/contact.jsx";
 import UserSignIn from "./pages/auth/userSignIn.jsx";
@@ -26,6 +28,10 @@ function App() {
           {/* authentication routes */}
           <Route path="/sign-in" element={<UserSignIn />} />
           <Route path="/sign-up" element={<UserSignUp />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
         </Routes>
       </Router>
       <FooterWithSitemap />

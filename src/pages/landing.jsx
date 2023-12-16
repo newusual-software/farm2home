@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import Navigations from "../components/common/navigations";
 import HomeBanner from "../components/homeBanner"
 import { tabList } from "../data/navLinks/navigationLinks";
@@ -10,10 +9,6 @@ import HomeAds from "../components/ads/homeAds";
 
 const Landing = () => {
     const selectedTab = "Most recent";
-    const { user } = useSelector(state => state.user);
-
-    console.log(user);
-
     return (
       <>
         <Navigations />
