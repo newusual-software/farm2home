@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import AuthLayout from "../../layouts/authLayout";
 import { postDataApi } from "../../lib/util/postApiUtils";
 
@@ -14,6 +16,7 @@ const UserSignUp = () => {
 
   const [passwordError, setPasswordError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,7 +63,8 @@ const UserSignUp = () => {
      postDataApi(
        apiUrl,
        postDataInfo,
-       setLoading
+       setLoading,
+       navigate
      );
   };
 

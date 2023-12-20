@@ -14,7 +14,6 @@ const userSlice = createSlice({
     // New action for creating a user
     createUser: (state, { payload }) => {
       // Add logic to handle creating a new user in the state
-	  console.log(state, user)
       return { ...state, isLoggedIn: true, user: payload };
     },
   },
