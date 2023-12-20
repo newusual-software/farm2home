@@ -53,6 +53,8 @@ const UserSignIn = () => {
       loginUser(postDataInfo)
        .then(res => {
          if (res.data) {
+          console.log(res.data._id)
+          localStorage.setItem('userId', res.data._id);
             dispatch(addUser(res.data));
             toast.success("logged in successfully")
             navigate("/dashboard");
