@@ -28,9 +28,6 @@ export const postDataApi = (apiUrl, postDataInfo, setLoading) => {
         console.log(data._id);
         localStorage.setItem("id", data._id);
       }
-      if("fname" in data) {
-        return data
-      }
       console.log("Server response:", data);
     })
     .catch((error) => {

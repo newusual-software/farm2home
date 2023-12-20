@@ -91,7 +91,7 @@ console.log(data)
           </ul>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {data.map((data, index) => (
+          {data?.map((data, index) => (
             <div key={index} className="mb-6">
               <ProductItem
                 {...data}

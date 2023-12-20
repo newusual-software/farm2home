@@ -53,8 +53,9 @@ const UserSignIn = () => {
       loginUser(postDataInfo)
        .then(res => {
          if (res.data) {
+          console.log(res.data)
             dispatch(addUser(res.data));
-            navigate("/dashboard");
+            // navigate("/dashboard");
           } else {
             alert("Invalid Email or password");
             return;
