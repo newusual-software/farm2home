@@ -5,6 +5,7 @@ import AuthLayout from "../../layouts/authLayout";
 import { useLoginUserMutation } from "../../services/api";
 import { addUser } from "../../redux/user";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const UserSignIn = () => {
     const [formData, setFormData] = useState({
@@ -37,7 +38,6 @@ const UserSignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const apiUrl = "login";
 
     const postDataInfo = {
       email: formData.email,
@@ -54,9 +54,10 @@ const UserSignIn = () => {
        .then(res => {
          if (res.data) {
             dispatch(addUser(res.data));
+            toast.success("logged in successfully")
             navigate("/dashboard");
           } else {
-            alert("Invalid Email or password");
+            toast.error("Invalid Email or password");
             return;
           }
        })
