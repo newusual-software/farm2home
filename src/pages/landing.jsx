@@ -18,7 +18,8 @@ const Landing = () => {
         <TabList tabList={tabList} selectedTab={selectedTab} />
         <ProductsList />
         <Testimonial />
-        <HomeAds />
+        {!user?._id ? <HomeAds /> : null}
+        
       </main>
     </>
   );
