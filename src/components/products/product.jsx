@@ -37,7 +37,7 @@ export default function ProductsList() {
     <>
       {loading && <Loader />}
 
-      <div className={`my-14 grid grid-cols-1 ${loading ? "hidden" : ""}`}>
+      <div className={`my-9 grid grid-cols-1 ${loading ? "hidden" : ""}`}>
         {/* Render all uncategorized products in a single row */}
         <div className="flex overflow-x-auto mb-6 flex-row">
           {uncategorizedProducts.map(({ id, ...rest }, i) => (

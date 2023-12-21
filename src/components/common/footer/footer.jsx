@@ -1,9 +1,11 @@
 import { SITEMAP } from "../../../data/sitemaps/sitemap";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const currentYear = new Date().getFullYear();
 
 export function FooterWithSitemap() {
+  const { user } = useSelector((state) => state.user);
+  const isLoggedIn = user?._id;
   return (
     <footer className="relative w-full bg-mainGreen text-white">
       <div className="mx-auto w-full max-w-7xl px-8">
@@ -21,28 +23,34 @@ export function FooterWithSitemap() {
             <div key={key} className="w-full">
               <h1 className="mb-4 font-bold text-white uppercase">{title}</h1>
               <ul className="space-y-1">
-                {Array.isArray(links)
-                  ? links.map((link, index) => (
-                      <li key={index} className="font-normal">
-                        {typeof link === "object" ? (
-                          <a
-                            href={link.targetLink}
-                            className="inline-block py-1 pr-2 transition-transform hover:scale-105"
-                          >
-                            {Object.values(link)[0]}
-                          </a>
-                        ) : (
-                          <a
-                            href={`/${link.toLowerCase().replace(/\s+/g, "-")}`}
-                            className="inline-block py-1 pr-2 transition-transform hover:scale-105"
-                          >
-                            {link}
-                          </a>
-                        )}
-                      </li>
-                    ))
-                  : null}
-              </ul>
+              {Array.isArray(links)
+                ? links.map((link, index) => (
+                    <li key={index} className="font-normal">
+                      {typeof link === "object" ? (
+                        <>
+                          {(isLoggedIn &&
+                            (link.label === "Sign Up" ||
+                              link.label === "Log In")) ? null : (
+                            <a
+                              href={link.targetLink}
+                              className="inline-block py-1 pr-2 transition-transform hover:scale-105"
+                            >
+                              {Object.values(link)[0]}
+                            </a>
+                          ) }
+                        </>
+                      ) : (
+                        <a
+                          href={`/${link.toLowerCase().replace(/\s+/g, "-")}`}
+                          className="inline-block py-1 pr-2 transition-transform hover:scale-105"
+                        >
+                          {link}
+                        </a>
+                      )}
+                    </li>
+                  ))
+                : null}
+            </ul>
               {title === "Contact Us" && (
                 <div className="flex gap-3 text-white pt-4">
                   <a href="#" className=" transition-opacity hover:opacity-100">

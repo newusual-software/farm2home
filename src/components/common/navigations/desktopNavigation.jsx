@@ -6,13 +6,14 @@ import { clearUser } from "../../../redux/user";
 
 const DesktopNavigation = ({ navigationItems }) => {
   const [isCollapseOpen, setIsCollapseOpen] = useState(false);
-
-  const handleToggleClick = () => {
-    setIsCollapseOpen(!isCollapseOpen);
-  };
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { user } = useSelector((state) => state.user);
+
+
   const userInitals = user?.first_name[0] + user?.last_name[0];
+
   const defaultStyle = "font-bold  text-md capitalize";
   const activeLinkStyle =
     "after:absolute after:bg-gradient-to-r text-green-900 from-green-900 to-green-400 after:w-full after:h-[3px] after:bottom-[-8px] after:left-0";
@@ -32,8 +33,9 @@ const DesktopNavigation = ({ navigationItems }) => {
   const handleSignUp = () => {
     navigate("/sign-up");
   };
-  const dispatch = useDispatch();
-
+  const handleToggleClick = () => {
+    setIsCollapseOpen(!isCollapseOpen);
+  };
   const handleLogout = () => {
     // Clear localStorage
     localStorage.clear();
