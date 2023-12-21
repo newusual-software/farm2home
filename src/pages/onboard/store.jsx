@@ -6,26 +6,24 @@ import OnboardLayout from "../../layouts/onboardLayout";
 import useApiFetcher from "../../lib/hooks/useApiFetcher";
 import HomeAds from "../../components/ads/homeAds";
 
-
 const Store = () => {
-
   const [selectedCategories, setSelectedCategories] = useState(["All"]);
 
-    const getApiUrl = (selectedCategories) => {
-      if (selectedCategories.includes("All")) {
-        return "product";
-      } else {
-        const categoryQueryParam = selectedCategories
-          .map((category) => `q=${category.replace(/\s/g, "-")}`)
-          .join("&");
-        console.log(categoryQueryParam);
-        return `product/?${categoryQueryParam}`;
-      }
-    };
-    
+  const getApiUrl = (selectedCategories) => {
+    if (selectedCategories.includes("All")) {
+      return "product";
+    } else {
+      const categoryQueryParam = selectedCategories
+        .map((category) => `q=${category.replace(/\s/g, "-")}`)
+        .join("&");
+      console.log(categoryQueryParam);
+      return `product/?${categoryQueryParam}`;
+    }
+  };
+
   const method = "GET";
 
-  const headers = {}; // Add any headers if needed  
+  const headers = {}; // Add any headers if needed
 
   let { data, error } = useApiFetcher(
     getApiUrl(selectedCategories),
@@ -41,7 +39,7 @@ const Store = () => {
   if (!data) {
     return <div>Loading...</div>;
   }
-console.log(data)
+  console.log(data);
   const categories = [
     "All",
     "Roots and Tubers",
@@ -96,7 +94,7 @@ console.log(data)
               <ProductItem
                 {...data}
                 productNameMaxLength={9}
-                productDesMaxLength={35}
+                productDesMaxLength={40}
               />
             </div>
           ))}
