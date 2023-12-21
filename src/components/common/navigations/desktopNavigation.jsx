@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const DesktopNavigation = ({ navigationItems }) => {
-  let navigate = useNavigate();
-
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
+  const userInitals = user?.first_name[0] + user?.last_name[0]
   const defaultStyle = "font-bold  text-md capitalize";
   const activeLinkStyle =
     "after:absolute after:bg-gradient-to-r text-green-900 from-green-900 to-green-400 after:w-full after:h-[3px] after:bottom-[-8px] after:left-0";
@@ -25,6 +27,7 @@ const DesktopNavigation = ({ navigationItems }) => {
   const handleSignUp = () => {
     navigate("/sign-up");
   }
+
   return (
     <div className="items-center text-[#000] w-full justify-between hidden md:flex">
       <div>
@@ -45,7 +48,7 @@ const DesktopNavigation = ({ navigationItems }) => {
       </div>
       <nav className="flex gap-8">
         {navigationItems.map((link) => (
-          <div key={link.label} className="relative cursor-pointer top">
+          <div key={link.label} className="relative cursor-pointer">
             <a href={link.url} className={`${getProperStyle(link)}`}>
               <p>{link.label}</p>
             </a>
@@ -54,22 +57,31 @@ const DesktopNavigation = ({ navigationItems }) => {
       </nav>
 
       <div className="flex gap-2">
-        <div>
-          <button
-            onClick={handleSignIn}
-            className="w-[6rem] py-2 rounded-md text-mainGreen bg-transparent border border-green-900"
-          >
-            Sign In
-          </button>
-        </div>
-        <div>
-          <button
-            onClick={handleSignUp}
-            className="w-[6rem] py-2 rounded-md text-white bg-mainGreen border border-green-900"
-          >
-            Sign Up
-          </button>
-        </div>
+        {user?._id ? (
+          <div className="flex gap-2 justify-center items-center">
+            <div className=" uppercase w-[3rem] h-[3rem] text-white rounded-full bg-mainGreen inline-flex justify-center items-center ">{userInitals}</div>
+            <div className="capitalize">{user?.first_name}</div>
+          </div>
+        ) : (
+          <>
+            <div>
+              <button
+                onClick={handleSignIn}
+                className="w-[6rem] py-2 rounded-md text-mainGreen bg-transparent border border-green-900"
+              >
+                Sign In
+              </button>
+            </div>
+            <div>
+              <button
+                onClick={handleSignUp}
+                className="w-[6rem] py-2 rounded-md text-white bg-mainGreen border border-green-900"
+              >
+                Sign Up
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

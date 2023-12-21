@@ -163,7 +163,7 @@ const UserSignIn = () => {
           </div>
         </div>
         <div className="w-full py-4">
-          <div className="w-full text-center text-[#000] font-workSans font-normal text-[16px] py-3 w-full">
+          <div className="text-center text-[#000] font-workSans font-normal text-[16px] py-3 w-full">
             Don’t have an account?{" "}
             <span>
               <a href="/sign-up" className="text-mainGreen">
