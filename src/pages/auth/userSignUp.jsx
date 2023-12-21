@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useCreateUserMutation } from "../../services/api";
+import { addUser } from "../../redux/user";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import AuthLayout from "../../layouts/authLayout";
-import { postDataApi } from "../../lib/util/postApiUtils";
+// import { postDataApi } from "../../lib/util/postApiUtils";
 
 const UserSignUp = () => {
   const [formData, setFormData] = useState({
@@ -15,8 +18,9 @@ const UserSignUp = () => {
   });
 
   const [passwordError, setPasswordError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [ createUser, { isLoading } ] = useCreateUserMutation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,7 +48,6 @@ const UserSignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const apiUrl = "create";
 
     const postDataInfo = {
       first_name: formData.firstName,
@@ -54,18 +57,30 @@ const UserSignUp = () => {
       phone_number: formData.phoneNumber,
     };
     // Check if there are any validation errors before submitting the form
-    if (passwordError || loading) {
+    if (passwordError || isLoading) {
       console.log("Form has validation errors or is loading");
       return;
     }
 
-    setLoading(true);
-     postDataApi(
-       apiUrl,
-       postDataInfo,
-       setLoading,
-       navigate
-     );
+    
+    try {
+      createUser(postDataInfo)
+       .then(res => {
+         if (res.data) {
+          console.log(res.data._id)
+          localStorage.setItem('userId', res.data._id);
+            dispatch(addUser(res.data));
+            toast.success("Account created successfully")
+            navigate("/dashboard");
+          } else {
+            toast.error("Invalid ");
+            return;
+          }
+       })
+       .catch(error => console.log(error))
+    } catch(e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -207,9 +222,9 @@ const UserSignUp = () => {
         <button
           type="submit"
           className="bg-mainGreen w-full text-center text-white py-3 px-5 rounded-md hover:bg-green-600 mt-4"
-          disabled={loading} // Disable the button while loading
+          disabled={isLoading} // Disable the button while loading
         >
-          {loading ? "Creating Account..." : "Create an Account"}
+          {isLoading ? "Creating Account..." : "Create an Account"}
         </button>
         <div className="relative flex w-[90%] mx-auto flex-row py-6 ">
           <div className=" w-full inline-flex items-center text-xs align-middle">
@@ -247,7 +262,7 @@ const UserSignUp = () => {
           </div>
         </div>
         <div className="w-full py-4">
-          <div className="w-full text-center text-[#000] font-workSans font-normal text-[16px] py-3 w-full">
+          <div className="text-center text-[#000] font-workSans font-normal text-[16px] py-3 w-full">
             Already have an account?{" "}
             <span>
               <a href="/sign-in" className="text-mainGreen">

@@ -16,8 +16,13 @@ const userSlice = createSlice({
       // Add logic to handle creating a new user in the state
       return { ...state, isLoggedIn: true, user: payload };
     },
+    clearUser: (state) => {
+      // Add logic to clear user-related data when logging out
+      return { ...state, isLoggedIn: false, user: null };
+    },
+
   },
 });
 
-export const { addUser, createUser } = userSlice.actions;
+export const { addUser, createUser, clearUser } = userSlice.actions;
 export default userSlice;

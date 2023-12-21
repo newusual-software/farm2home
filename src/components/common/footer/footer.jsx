@@ -1,4 +1,5 @@
 import { SITEMAP } from "../../../data/sitemaps/sitemap";
+// import { useSelector } from "react-redux";
 
 const currentYear = new Date().getFullYear();
 
