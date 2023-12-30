@@ -57,7 +57,7 @@ const DesktopNavigation = ({ navigationItems }) => {
           />
           <button
             type="button"
-            className="py-3 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-green-800 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+            className="py-3 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-mainGreen  text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
           >
             search
           </button>
@@ -76,7 +76,7 @@ const DesktopNavigation = ({ navigationItems }) => {
       <div className="flex gap-2">
         {user?._id ? (
           <div className="flex gap-2 justify-center items-center">
-            <div className="w-[10rem] h-[2.7rem] bg-emerald-800 rounded-[10px] justify-center items-center gap-2 inline-flex">
+            <div className="w-[10rem] h-[2.7rem] bg-mainGreen rounded-[10px] justify-center items-center gap-2 inline-flex">
               <div className="text-white text-sm font-normal font-workSans leading-snug tracking-wide">
                 Track Your Order
               </div>
@@ -119,7 +119,7 @@ const DesktopNavigation = ({ navigationItems }) => {
               >
                 <button
                   onClick={handleLogout}
-                  className="w-[10rem] h-[2.7rem] bg-emerald-800 rounded-2xl flex items-center justify-center gap-2"
+                  className="w-[10rem] h-[2.7rem] bg-mainGreen rounded-2xl flex items-center justify-center gap-2"
                 >
                   <span className="text-white text-sm font-normal font-workSans leading-snug tracking-wide">
                     Logout
