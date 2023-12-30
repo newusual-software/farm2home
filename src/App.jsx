@@ -12,6 +12,7 @@ import UserSignIn from "./pages/auth/userSignIn.jsx";
 import UserSignUp from "./pages/auth/userSignUp.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProductDescription from "./pages/authenticatedPages/productDescription.jsx";
 function App() {
   return (
     <>
@@ -31,6 +32,9 @@ function App() {
 
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<Landing />} />
+          </Route>
+          <Route element={<ProtectedRoute />}>
+            <Route path="/product/:id" element={<ProductDescription />} />
           </Route>
         </Routes>
       </Router>
