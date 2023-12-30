@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { ImagePlacehoderSkeleton } from "../../components/skeleton/imagePlacehoderSkeleton";
 import { Button } from "@material-tailwind/react";
-
+import { useDispatch } from "react-redux";
+import { addToCart, incrementQuantity, decrementQuantity, } from "../../redux/cart";
 const data = [
   {
     imgelink:
@@ -89,14 +90,12 @@ export default function ProductDescription() {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [formattedDateWithSuffix, setFormattedDateWithSuffix] = useState("");
-  const [quantity, setQuantity] = useState(20);
   const [active, setActive] = useState("");
+  const [showQuantityDiv, setShowQuantityDiv] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const handleClick = (index) => {
-    navigate(`/product/${index}`);
-  };
+  const dispatch = useDispatch();
+  let quantity = 10
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -153,18 +152,8 @@ export default function ProductDescription() {
     fetchAllData();
   }, [id, product, productcat]);
 
-  const handleDecrease = () => {
-    // Ensure the quantity does not go below the available quantity (product.product_total)
-    if (quantity > product.product_total) {
-      setQuantity(product.product_total);
-    } else if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-
-  const handleIncrease = () => {
-    // Ensure the quantity does not exceed the available quantity
-    setQuantity(quantity + 1);
+  const handleClick = (index) => {
+    navigate(`/product/${index}`);
   };
 
   return (
@@ -242,38 +231,55 @@ export default function ProductDescription() {
               <div className="text-[#007145] my-4 text-[22px] font-semibold font-workSans">
                 Free Delivery
               </div>
-              <div className="w-[353px] h-[47px] justify-start items-center gap-2 inline-flex">
-                <div className="text-black text-[22px] font-semibold font-workSans">
-                  Quantity:
-                </div>
-                <div className="h-[47px] justify-start items-center gap-2 flex">
-                  <div className="bg-white rounded-[10px] border border-mainGreen justify-start items-center flex">
-                    <button
-                      onClick={handleDecrease}
-                      className="px-6 py-2 rounded-l-[10px] border-r border-mainGreen flex-col justify-center items-start gap-2 inline-flex"
-                    >
-                      -
-                    </button>
-                    <div className="px-6   flex-col justify-center items-start gap-2 inline-flex">
-                      <div className="text-neutral-500 text-xl font-medium font-workSans">
-                        {quantity}
+              {showQuantityDiv === true ? (
+                <div className="w-[353px] h-[47px] justify-start items-center gap-2 inline-flex">
+                  <div className="text-black text-[22px] font-semibold font-workSans">
+                    Quantity:
+                  </div>
+                  <div className="h-[47px] justify-start items-center gap-2 flex">
+                    <div className="bg-white rounded-[10px] border border-mainGreen justify-start items-center flex">
+                      <button
+                        onClick={() => dispatch(decrementQuantity({productId: id}))}
+                        className="px-6 py-2 rounded-l-[10px] border-r border-mainGreen flex-col justify-center items-start gap-2 inline-flex"
+                      >
+                        -
+                      </button>
+                      <div className="px-6   flex-col justify-center items-start gap-2 inline-flex">
+                        <div className="text-neutral-500 text-xl font-medium font-workSans">
+                          {quantity}
+                        </div>
                       </div>
+                      <button
+                        onClick={() => dispatch(incrementQuantity({productId: id}))}
+                        className="px-6 py-2 rounded-r-[10px] border-l border-mainGreen justify-start items-center gap-2 flex"
+                      >
+                        +
+                      </button>
                     </div>
-                    <button
-                      onClick={handleIncrease}
-                      className="px-6 py-2 rounded-r-[10px] border-l border-mainGreen justify-start items-center gap-2 flex"
-                    >
-                      +
-                    </button>
-                  </div>
-                  <div className="text-black text-xl font-medium font-workSans">
-                    kg
+                    <div className="text-black text-xl font-medium font-workSans">
+                      kg
+                    </div>
                   </div>
                 </div>
-              </div>
-              <Button className="flex capitalize my-5 text-white text-xl font-medium font-workSans bg-mainGreen">
-                Add to Cart
-              </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    dispatch(
+                      addToCart({
+                        productId: product._id,
+                        productImage: product.product_image,
+                        productName: product.product_name,
+                        productPrice: product.product_price,
+                        productQuantity: quantity,
+                      })
+                    );
+                    setShowQuantityDiv(true);
+                  }}
+                  className="flex capitalize my-5 text-white text-xl font-medium font-workSans bg-mainGreen"
+                >
+                  Add to Cart
+                </Button>
+              )}
             </div>
           </div>
           <div className="text-black text-[28px] my-5 font-medium font-workSans">

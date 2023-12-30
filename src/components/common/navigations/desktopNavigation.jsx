@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
@@ -10,8 +9,6 @@ const DesktopNavigation = ({ navigationItems }) => {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.user);
-
-
   const userInitals = user?.first_name[0] + user?.last_name[0];
 
   const defaultStyle = "font-bold  text-md capitalize";
@@ -20,7 +17,7 @@ const DesktopNavigation = ({ navigationItems }) => {
 
   const location = window.location.pathname;
   const getProperStyle = (link) => {
-    if (location.slice(1).includes(link.url)) {
+    if (location.slice(1).includes(link.url)) { 
       return ` ${activeLinkStyle} ${defaultStyle}`;
     } else if ("/".includes(link.url) === location[0]) {
       return ` ${activeLinkStyle} ${defaultStyle}`;
@@ -77,7 +74,7 @@ const DesktopNavigation = ({ navigationItems }) => {
         {user?._id ? (
           <div className="flex gap-2 justify-center items-center">
             <div className="w-[10rem] h-[2.7rem] bg-mainGreen rounded-[10px] justify-center items-center gap-2 inline-flex">
-              <div className="text-white text-sm font-normal font-workSans leading-snug tracking-wide">
+              <div onClick={() => navigate("/cart")} className="cursor-pointer text-white text-sm font-normal font-workSans leading-snug tracking-wide">
                 Track Your Order
               </div>
             </div>
@@ -128,7 +125,7 @@ const DesktopNavigation = ({ navigationItems }) => {
               </div>
             </div>
           </div>
-        ) : (
+                  ) : (
           <>
             <div>
               <button
@@ -151,15 +148,6 @@ const DesktopNavigation = ({ navigationItems }) => {
       </div>
     </div>
   );
-};
-
-DesktopNavigation.propTypes = {
-  navigationItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      url: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-    })
-  ).isRequired,
 };
 
 export default DesktopNavigation;
