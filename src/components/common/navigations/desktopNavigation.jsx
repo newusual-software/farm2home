@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { clearUser } from "../../../redux/user";
+import { Chip } from "@material-tailwind/react";
 
 const DesktopNavigation = ({ navigationItems }) => {
   const [isCollapseOpen, setIsCollapseOpen] = useState(false);
@@ -9,6 +10,8 @@ const DesktopNavigation = ({ navigationItems }) => {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.user);
+  const cart = useSelector((state) => state.cart.cart);
+
   const userInitals = user?.first_name[0] + user?.last_name[0];
 
   const defaultStyle = "font-bold  text-md capitalize";
@@ -17,7 +20,7 @@ const DesktopNavigation = ({ navigationItems }) => {
 
   const location = window.location.pathname;
   const getProperStyle = (link) => {
-    if (location.slice(1).includes(link.url)) { 
+    if (location.slice(1).includes(link.url)) {
       return ` ${activeLinkStyle} ${defaultStyle}`;
     } else if ("/".includes(link.url) === location[0]) {
       return ` ${activeLinkStyle} ${defaultStyle}`;
@@ -73,10 +76,19 @@ const DesktopNavigation = ({ navigationItems }) => {
       <div className="flex gap-2">
         {user?._id ? (
           <div className="flex gap-2 justify-center items-center">
-            <div className="w-[10rem] h-[2.7rem] bg-mainGreen rounded-[10px] justify-center items-center gap-2 inline-flex">
-              <div onClick={() => navigate("/cart")} className="cursor-pointer text-white text-sm font-normal font-workSans leading-snug tracking-wide">
+            <div onClick={() => navigate("/cart")} className="w-[10rem] cursor-pointer relative h-[2.7rem] bg-mainGreen rounded-[10px] justify-center items-center gap-2 inline-flex">
+              <div
+                
+                className=" text-white text-sm font-normal font-workSans leading-snug tracking-wide"
+              >
                 Track Your Order
               </div>
+              {cart.length > 0 ? (
+                <Chip
+                  value={cart.length}
+                  className=" text-white rounded-full w-8 h-8 text-center absolute -top-5 -right-3 bg-gray-800 text-md font-normal font-workSans tracking-tight"
+                />
+              ) : null}
             </div>
             <div className=" uppercase w-[2.5rem] h-[2.5rem] text-white rounded-full bg-mainGreen inline-flex justify-center items-center ">
               {userInitals}
@@ -125,7 +137,7 @@ const DesktopNavigation = ({ navigationItems }) => {
               </div>
             </div>
           </div>
-                  ) : (
+        ) : (
           <>
             <div>
               <button

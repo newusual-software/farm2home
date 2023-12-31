@@ -1,6 +1,8 @@
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import { truncateString } from "../../lib/util/truncateString";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cart";
 
 export default function ProductItem({
   product_des,
@@ -13,6 +15,8 @@ export default function ProductItem({
   _id,
 }) {
   const [rating, setRating] = useState(initialRating);
+  const dispatch = useDispatch();
+  const quantity = 1;
 
   // Function to handle star click
   const handleStarClick = (clickedRating) => {
@@ -71,13 +75,23 @@ export default function ProductItem({
               {truncatedProductName}
             </div>
           </a>
-          <div className="pr-1">
-            <a href="#">
+          <div onClick={() => {
+                    dispatch(
+                      addToCart({
+                        productId: _id,
+                        productImage: product_image,
+                        productName: product_name,
+                        productDes: product_des,
+                        productPrice: product_price,
+                        productQuantity:  quantity,
+                      })
+                    );
+                  }} className="pr-1 ">
+            
               <img
                 src="https://res.cloudinary.com/phantom1245/image/upload/v1700385830/farm2home/Vector_t2fbui.svg"
                 alt="cart icon"
               />
-            </a>
           </div>
         </div>
         <div

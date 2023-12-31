@@ -20,7 +20,7 @@ export default function ProductDescription() {
   const [formattedDateWithSuffix, setFormattedDateWithSuffix] = useState("");
   const [active, setActive] = useState("");
   const [showQuantityDiv, setShowQuantityDiv] = useState(false);
-  const [quantity, setQuantity] = useState(1);
+  const quantity = 1;
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -188,7 +188,6 @@ export default function ProductDescription() {
                       </div>
                       <button
                         onClick={() => { 
-                          setQuantity(quantity + 1)
                           handleIncrement()
                         }}
                         className="px-6 py-2 rounded-r-[10px] border-l border-mainGreen justify-start items-center gap-2 flex"
@@ -209,6 +208,7 @@ export default function ProductDescription() {
                         productId: product._id,
                         productImage: product.product_image,
                         productName: product.product_name,
+                        productDes: product.product_des,
                         productPrice: product.product_price,
                         productQuantity: quantity,
                       })
