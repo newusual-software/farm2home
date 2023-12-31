@@ -13,6 +13,7 @@ import UserSignUp from "./pages/auth/userSignUp.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProductDescription from "./pages/authenticatedPages/productDescription.jsx";
+import Cart from "./components/cart/cart.jsx";
 function App() {
   return (
     <>
@@ -26,6 +27,7 @@ function App() {
           <Route path="/our-store" element={<Store />} />
           <Route path="/help" element={<Help />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/cart" element={<Cart />} />
           {/* authentication routes */}
           <Route path="/sign-in" element={<UserSignIn />} />
           <Route path="/sign-up" element={<UserSignUp />} />
