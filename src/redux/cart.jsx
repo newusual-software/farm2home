@@ -19,24 +19,26 @@ const cartSlice = createSlice({
     },
     incrementQuantity: (state, { payload }) => {
       const item = state.cart.find((item) => item.productId === payload.productId);
-
+      console.log("item.productId:", item ? item.productId : "Not found");
+      console.log("payload.productId:", payload.productId);
       if (item) {
-        item.quantity++;
+        item.productQuantity++;
       }
     },
 
     decrementQuantity: (state, { payload }) => {
       const item = state.cart.find((item) => item.productId === payload.productId);
-
+      console.log("item.productId:", item ? item.productId : "Not found");
       if (item) {
-        if (item.quantity === 10) {
+        if (item.productQuantity === 1) {
           // If quantity is 1, remove the item
           state.cart = state.cart.filter((item) => item.productId !== payload.productId);
         } else {
-          item.quantity--;
+          item.productQuantity--;
         }
       }
     },
+
     removeItem: (state, { payload }) => {
       state.cart = state.cart.filter((item) => item.productId !== payload.productId);
     },

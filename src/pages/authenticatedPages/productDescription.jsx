@@ -4,86 +4,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { ImagePlacehoderSkeleton } from "../../components/skeleton/imagePlacehoderSkeleton";
 import { Button } from "@material-tailwind/react";
-import { useDispatch } from "react-redux";
-import { addToCart, incrementQuantity, decrementQuantity, } from "../../redux/cart";
-const data = [
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    imgelink:
-      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-];
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToCart,
+  incrementQuantity,
+  decrementQuantity,
+} from "../../redux/cart";
+import { data } from "../../data/product/data";
+
 export default function ProductDescription() {
   const [product, setProduct] = useState({});
   const [productcat, setProductcat] = useState("");
@@ -92,10 +20,13 @@ export default function ProductDescription() {
   const [formattedDateWithSuffix, setFormattedDateWithSuffix] = useState("");
   const [active, setActive] = useState("");
   const [showQuantityDiv, setShowQuantityDiv] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  let quantity = 10
+  const {cart} = useSelector((state) => state.cart);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -151,11 +82,17 @@ export default function ProductDescription() {
     fetchData();
     fetchAllData();
   }, [id, product, productcat]);
-
+  const item = cart.find((item) => item.productId === id);
   const handleClick = (index) => {
     navigate(`/product/${index}`);
   };
+  const handleIncrement = () => {
+    dispatch(incrementQuantity({ productId: id }));
+  };
 
+  const handleDecrement = () => {
+    dispatch(decrementQuantity({ productId: id }));
+  };
   return (
     <DefaultLayout>
       {product &&
@@ -231,7 +168,7 @@ export default function ProductDescription() {
               <div className="text-[#007145] my-4 text-[22px] font-semibold font-workSans">
                 Free Delivery
               </div>
-              {showQuantityDiv === true ? (
+              {showQuantityDiv === true && item !== undefined ? (
                 <div className="w-[353px] h-[47px] justify-start items-center gap-2 inline-flex">
                   <div className="text-black text-[22px] font-semibold font-workSans">
                     Quantity:
@@ -239,18 +176,21 @@ export default function ProductDescription() {
                   <div className="h-[47px] justify-start items-center gap-2 flex">
                     <div className="bg-white rounded-[10px] border border-mainGreen justify-start items-center flex">
                       <button
-                        onClick={() => dispatch(decrementQuantity({productId: id}))}
+                        onClick={handleDecrement}
                         className="px-6 py-2 rounded-l-[10px] border-r border-mainGreen flex-col justify-center items-start gap-2 inline-flex"
                       >
                         -
                       </button>
                       <div className="px-6   flex-col justify-center items-start gap-2 inline-flex">
                         <div className="text-neutral-500 text-xl font-medium font-workSans">
-                          {quantity}
+                        {item.productQuantity}
                         </div>
                       </div>
                       <button
-                        onClick={() => dispatch(incrementQuantity({productId: id}))}
+                        onClick={() => { 
+                          setQuantity(quantity + 1)
+                          handleIncrement()
+                        }}
                         className="px-6 py-2 rounded-r-[10px] border-l border-mainGreen justify-start items-center gap-2 flex"
                       >
                         +

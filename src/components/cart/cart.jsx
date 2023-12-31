@@ -26,7 +26,7 @@ const Cart = () => {
 
   return (
     <div className="container mx-auto mt-10">
-      <Button onClick={() => navigate("/our-shop")} className="my-6 rounded-[10px] border bg-transparent border-mainGreen justify-start items-center gap-2 inline-flex">
+      <Button onClick={() => navigate("/our-store")} className="my-6 rounded-[10px] border bg-transparent border-mainGreen justify-start items-center gap-2 inline-flex">
         <ArrowLeftIcon className="w-6 h-6 text-mainGreen" />
         <div className="text-mainGreen text-sm font-medium font-workSans">
           Continue Shopping
@@ -50,7 +50,7 @@ const Cart = () => {
               </Typography>
             </CardBody>
             <CardFooter className="pt-0">
-              <Button onClick={() => navigate("/our-shop")}>Continue Shopping</Button>
+              <Button onClick={() => navigate("/our-store")}>Continue Shopping</Button>
             </CardFooter>
           </Card>
         </div>
