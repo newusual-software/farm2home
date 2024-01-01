@@ -82,6 +82,7 @@ export default function ProductDescription() {
     fetchData();
     fetchAllData();
   }, [id, product, productcat]);
+  
   const item = cart.find((item) => item.productId === id);
   const handleClick = (index) => {
     navigate(`/product/${index}`);
@@ -99,7 +100,7 @@ export default function ProductDescription() {
       !isLoading &&
       Object.keys(product).length !== 0 &&
       relatedProducts.length !== 0 ? (
-        <div className="">
+        <div className="py-12">
           <div className="w-[95%] bg-white mx-auto p-6 rounded-lg shadow flex flex-row gap-5">
             <div className="w-[65%] grid gap-4">
               <div className="">

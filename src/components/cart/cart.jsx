@@ -14,6 +14,7 @@ import {
 } from "@material-tailwind/react";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
+import DefaultLayout from "../../layouts/defaultLayout";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,8 @@ const Cart = () => {
   };
 
   return (
-    <div className="container mx-auto mt-10">
+    <DefaultLayout>
+    <div className=" mx-auto">
       <Button
         onClick={() => navigate("/our-store")}
         className="my-6 rounded-[10px] border bg-transparent border-mainGreen justify-start items-center gap-2 inline-flex"
@@ -171,8 +173,8 @@ const Cart = () => {
             </div>
             <div className="text-mainGreen flex justify-end items-center mt-10 text-xl font-medium font-workSans">No Delivery Charges</div>
             <Button
-              className="mt-4 w-full "
-              onClick={() => alert("Checkout functionality to be implemented.")}
+              className="mt-4 w-full "onClick={() => navigate("/checkout")}
+
             >
               Checkout
             </Button>
@@ -180,6 +182,7 @@ const Cart = () => {
         </div>
       )}
     </div>
+    </DefaultLayout>
   );
 };
 
