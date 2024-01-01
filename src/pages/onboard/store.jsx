@@ -1,13 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "../../components/molecule/breadcrumbs/breadcrumbs";
 import ProductItem from "../../components/products/productItem";
 import { STATIC_PRODUCTS } from "../../data/product/productList";
 import OnboardLayout from "../../layouts/onboardLayout";
 import useApiFetcher from "../../lib/hooks/useApiFetcher";
 import HomeAds from "../../components/ads/homeAds";
+import axios from "axios";
+
 
 const Store = () => {
   const [selectedCategories, setSelectedCategories] = useState(["All"]);
+  const [categories, setCategories] = useState(["All"]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Make a GET request using Axios
+        const response = await axios.get(
+          'https://e-commerce-api-51vp.onrender.com/cartegorie/get'
+        );
+        const fetchedCategories = response.data.data.map((category) => category.name);
+
+        // Update the categories array
+        setCategories(["All", ...fetchedCategories]);
+
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      }
+    };
+
+    // Call the fetchData function when the component mounts
+    fetchData();
+  }, []); // Empty dependency array to run the effect only once
+
+  console.log(categories);
+
+
 
   const getApiUrl = (selectedCategories) => {
     if (selectedCategories.includes("All")) {
@@ -39,15 +67,15 @@ const Store = () => {
   if (!data) {
     return <div>Loading...</div>;
   }
-  console.log(data);
-  const categories = [
-    "All",
-    "Roots and Tubers",
-    "Perishables",
-    "Seed",
-    "Grains",
-    "Processed",
-  ];
+
+  // const categories = [
+  //   "All",
+  //   "Roots and Tubers",
+  //   "Perishables",
+  //   "Seed",
+  //   "Grains",
+  //   "Processed",
+  // ];
 
   const handleCategoryToggle = (category) => {
     if (category === "All") {

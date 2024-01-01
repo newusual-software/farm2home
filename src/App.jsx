@@ -14,6 +14,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProductDescription from "./pages/authenticatedPages/productDescription.jsx";
 import Cart from "./components/cart/cart.jsx";
+import Checkout from "./pages/authenticatedPages/checkout.jsx";
 function App() {
   return (
     <>
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route element={<ProtectedRoute />}>
             <Route path="/product/:id" element={<ProductDescription />} />
+          </Route>
+          <Route element={<ProtectedRoute />}>
+            <Route path="/checkout" element={<Checkout />} />
           </Route>
         </Routes>
       </Router>
