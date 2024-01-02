@@ -37,7 +37,7 @@ const Cart = () => {
         </div>
       </Button>
       <div>
-        <span className="pl-8 text-black text-[22px] font-medium font-workSans">
+        <span className="pl-4 text-black text-[22px] font-medium font-workSans">
           My Shopping cart
         </span>
         {cart.length > 0 ? (
@@ -69,7 +69,7 @@ const Cart = () => {
           </Card>
         </div>
       ) : (
-        <div className="flex my-5 w-full justify-between items-start gap-4 px-10 flex-row">
+        <div className="flex my-5 w-full justify-between items-start gap-4  flex-row">
           <div className="w-4/5 rounded-md bg-white shadow p-4 ">
             {cart.map((item) => (
               <div

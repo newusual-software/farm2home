@@ -31,11 +31,7 @@ const Store = () => {
 
     // Call the fetchData function when the component mounts
     fetchData();
-  }, []); // Empty dependency array to run the effect only once
-
-  console.log(categories);
-
-
+  }, []); 
 
   const getApiUrl = (selectedCategories) => {
     if (selectedCategories.includes("All")) {
