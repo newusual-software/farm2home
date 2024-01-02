@@ -2,11 +2,13 @@ import { useState } from "react";
 import { StepperWithContent } from "../../components/atoms/stepper/stepper";
 import DefaultLayout from "../../layouts/defaultLayout";
 import Delivery from "../../components/molecule/delivery/delivery";
+import { useSelector } from "react-redux";
+import AddressBook from "../../components/molecule/addressBook/addressBook";
 
 export default function Checkout() {
   // State to manage the selected status
   const [status, setStatus] = useState("delivery"); // You can set the default value here
-
+  const {delivery} = useSelector((state) => state.delivery);
   return (
     <DefaultLayout>
       <div className="text-black text-[40px] text-center my-3 font-bold font-workSans">
@@ -77,7 +79,7 @@ export default function Checkout() {
                 : "hidden"
             }
           >
-            <Delivery />
+            {delivery === null ? <Delivery /> : <AddressBook/>}
           </div>
         </div>
       </div>

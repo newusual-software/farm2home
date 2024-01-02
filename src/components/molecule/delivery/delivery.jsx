@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Textarea } from "@material-tailwind/react";
 import NaijaStates from "naija-state-local-government";
 import { Select, Option } from "@material-tailwind/react";
+import { useDispatch } from "react-redux";
+import { addDelivery } from "../../../redux/delivery";
+
 
 export default function Delivery() {
   const [formData, setFormData] = useState({
@@ -10,11 +13,12 @@ export default function Delivery() {
     email: "",
     phoneNumber: "",
     AdditionalPhoneNumber: "",
-    // state: NaijaStates.states()[0] || "", // Set the default state
+
   });
   const [selectedOption, setSelectedOption] = useState("Abia");
   const [selectedLga, setSelectedLga] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,13 +34,30 @@ export default function Delivery() {
   const handleSelectLga = (newOption) => {
     setSelectedLga(newOption);
   };
-
+  const handleChangeTextarea = (e, field) => {
+    const { value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [field]: value,
+    }));
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
+    const postDataInfo = {
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      email: formData.email,
+      phone_number: formData.phoneNumber,
+      address: formData.address,  // Add the address field
+      state: selectedOption,       // Add the state field
+      lga: selectedLga,            // Add the lga field
+      additional_phone_number: formData.AdditionalPhoneNumber,
+      directions: formData.directions,  // Add the directions field
+    };
+    dispatch(addDelivery(postDataInfo));
   };
 
-  // console.log();
   const lgas = NaijaStates.lgas(selectedOption).lgas;
   return (
     <div>
@@ -134,7 +155,8 @@ export default function Delivery() {
           >
             Address*:
           </label>
-          <Textarea/>
+          <Textarea value={formData.address}
+  onChange={(e) => handleChangeTextarea(e, "address")}/>
         </div>
         <div className="flex flex-col md:flex-row gap-4 py-2 md:gap-5">
           <div className="w-full md:w-1/2">
@@ -200,7 +222,8 @@ export default function Delivery() {
           >
             Directions*:
           </label>
-          <Textarea />
+          <Textarea   value={formData.directions}
+  onChange={(e) => handleChangeTextarea(e, "directions")}/>
         </div>
         <div className="text-[#7B7B7B] py-3 text-base font-semibold font-workSans leading-snug tracking-wide">NB: Required Fields*</div>
         <button
