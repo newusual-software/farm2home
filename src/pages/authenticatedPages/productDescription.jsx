@@ -32,7 +32,7 @@ export default function ProductDescription() {
       try {
         // Make a GET request using Axios
         const response = await axios.get(
-          `https://e-commerce-api-51vp.onrender.com/product/get/${id}`
+          `https://farm2home.cyclic.app/product/get/${id}`
         );
 
         // Assuming the API response contains the product data
@@ -64,7 +64,7 @@ export default function ProductDescription() {
       try {
         // Make a GET request using Axios
         const response = await axios.get(
-          `https://e-commerce-api-51vp.onrender.com/product`
+          `https://farm2home.cyclic.app/product`
         );
         let products = response.data;
         if (products.length !== 0) {

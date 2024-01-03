@@ -18,12 +18,6 @@ const useApiFetcher = (apiUrl, headers = {}, method = "") => {
     // Fetch data once when the component mounts
     fetchDataFromApi();
 
-    // Set up an interval for polling every 10 seconds
-    const pollingInterval = setInterval(fetchDataFromApi, 10000);
-
-    // Clean up the interval when the component unmounts or when dependencies change
-    return () => clearInterval(pollingInterval);
-
   }, [apiUrl, headers, method]);
 
   return { data, error };
