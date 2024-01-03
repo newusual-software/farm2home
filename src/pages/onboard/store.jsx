@@ -17,7 +17,7 @@ const Store = () => {
       try {
         // Make a GET request using Axios
         const response = await axios.get(
-          'https://e-commerce-api-51vp.onrender.com/cartegorie/get'
+          'https://farm2home.cyclic.app/cartegorie/get'
         );
         const fetchedCategories = response.data.data.map((category) => category.name);
 

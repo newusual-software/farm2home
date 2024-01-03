@@ -4,7 +4,7 @@ export const userApi = createApi({
   reducerPath: "productApi",
   tagTypes: ["Product"],
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://e-commerce-api-51vp.onrender.com/",
+    baseUrl: "https://farm2home.cyclic.app/",
   }),
   endpoints: (builder) => ({
     // login customer

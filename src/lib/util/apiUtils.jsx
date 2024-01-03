@@ -1,7 +1,7 @@
 // apiUtils.jsx
 
 export const fetchData = async (apiUrl, headers, method) => {
- const baseUrl = "https://e-commerce-api-51vp.onrender.com" || "";
+ const baseUrl = "https://farm2home.cyclic.app" || "";
   const url = `${baseUrl}/${apiUrl}`;
 
   const res = await fetch(url, {

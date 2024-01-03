@@ -9,6 +9,7 @@ export default function Checkout() {
   // State to manage the selected status
   const [status, setStatus] = useState("delivery"); // You can set the default value here
   const {delivery} = useSelector((state) => state.delivery);
+  console.log(delivery);
   return (
     <DefaultLayout>
       <div className="text-black text-[40px] text-center my-3 font-bold font-workSans">
