@@ -13,7 +13,7 @@ const deliverySlice = createSlice({
 
     clearDelivery: (state) => {
       // Add logic to clear user-related data when logging out
-      return { ...state, delivery: null };
+      return { ...state, delivery: [] };
     },
 
   },

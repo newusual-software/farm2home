@@ -67,9 +67,9 @@ const UserSignUp = () => {
       createUser(postDataInfo)
        .then(res => {
          if (res.data) {
-          console.log(res.data._id)
-          localStorage.setItem('userId', res.data._id);
-            dispatch(addUser(res.data));
+          console.log(res.data.data._id)
+          localStorage.setItem('userId', res.data.data._id);
+            dispatch(addUser(res.data.data));
             toast.success("Account created successfully")
             navigate("/dashboard");
           } else {
