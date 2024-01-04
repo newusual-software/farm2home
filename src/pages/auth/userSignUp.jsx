@@ -5,7 +5,6 @@ import { addUser } from "../../redux/user";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import AuthLayout from "../../layouts/authLayout";
-// import { postDataApi } from "../../lib/util/postApiUtils";
 
 const UserSignUp = () => {
   const [formData, setFormData] = useState({

@@ -11,10 +11,10 @@ export default function ProductItem({
   productNameMaxLength,
   productDesMaxLength,
   product_name,
-  initialRating,
+  product_rate,
   _id,
 }) {
-  const [rating, setRating] = useState(initialRating);
+  const [rating, setRating] = useState(product_rate);
   const dispatch = useDispatch();
   const quantity = 1;
 
