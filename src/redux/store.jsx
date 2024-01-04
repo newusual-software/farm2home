@@ -28,7 +28,8 @@ const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false
+      serializableCheck: false,
+      ignoredActions: ['userApi/fulfilled', 'userApi/pending', 'userApi/rejected'],
     }).concat(userApi.middleware),
 });
 
