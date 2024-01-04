@@ -1,5 +1,3 @@
-// apiUtils.jsx
-
 export const fetchData = async (apiUrl, headers, method) => {
  const baseUrl = "https://farm2home.cyclic.app" || "";
   const url = `${baseUrl}/${apiUrl}`;
