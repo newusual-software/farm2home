@@ -1,57 +1,79 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { STATIC_PRODUCTS } from "../../data/product/productList";
-import ProductItem from "./productItem";
+import useApiFetcher from "../../lib/hooks/useApiFetcher";
+import ProductItem from "../products/productItem";
 import { Link } from "react-router-dom";
 
 const Loader = () => {
   return <div>Loading...</div>;
 };
 
-export default function ProductsList() {
+export default function TabItem({ category }) {
   const [loading, setLoading] = useState(true);
   const [generalProduct, setGeneralProduct] = useState([]);
 
-  useEffect(() => {
-    // Simulate an API call to fetch data
-    setTimeout(() => {
-      setGeneralProduct(STATIC_PRODUCTS);
-      setLoading(false);
-    }, 2000); // Adjust the time as needed
-  }, []);
-
-  // Group products by category
-  const groupedProducts = generalProduct.reduce((acc, product) => {
-    const { category } = product;
-    if (!acc[category]) {
-      acc[category] = [];
+  const getApiUrl = (category) => {
+    if (category === "Most-Recent") {
+      return "product";
+    } else {
+      const categoryQueryParam = `q=${category}`;
+      return `product/?${categoryQueryParam}`;
     }
-    acc[category].push(product);
+  };
+
+  const { data, error } = useApiFetcher(getApiUrl(category), {}, "GET");
+
+  useEffect(() => {
+    let ignore = false;
+    const fetchData = async () => {
+      try {
+        if (error) {
+          console.error(error);
+          setGeneralProduct(STATIC_PRODUCTS);
+        } else {
+          if (!ignore) setGeneralProduct(data || []);
+        }
+
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching product:', error);
+        setGeneralProduct(STATIC_PRODUCTS);
+        setLoading(false);
+      }
+    };
+
+    fetchData(); // Initial fetch
+
+    return () => { ignore = true }
+  }, [data, error, category]);
+
+  const groupedProducts = generalProduct.reduce((acc, product) => {
+    const { product_cat } = product;
+
+    if (!acc[product_cat]) {
+      acc[product_cat] = [];
+    }
+    acc[product_cat].push(product);
     return acc;
   }, {});
-
-  // Extract categories and products
-  const categories = Object.keys(groupedProducts);
-
+  console.log(data)
   return (
     <>
       {loading && <Loader />}
 
       <div className={`my-9 grid grid-cols-1 ${loading ? "hidden" : ""}`}>
-        {/* Render all uncategorized products in a single row */}
-        
-
         {/* Render categorized products in rows */}
-        {categories.map((category, index) => (
+        {Object.keys(groupedProducts).map((category, index) => (
           <div key={index} className="mb-6">
             <div className="flex justify-between flex-row mb-6 items-center px-5">
-              <div >
+              <div>
                 <h2 className="text-xl font-workSans font-bold text-mainGreen  ">
                   {category}
                 </h2>
               </div>
               <div>
                 <Link to="/" className="px-4 py-2 rounded-md text-mainGreen bg-transparent border border-green-900">
-                  See more 
+                  See more
                 </Link>
               </div>
             </div>

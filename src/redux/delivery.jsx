@@ -7,17 +7,18 @@ const deliverySlice = createSlice({
   },
   reducers: {
     addDelivery: (state, { payload }) => {
-      
-      state.delivery.push(payload)
+      return {
+        ...state,
+        delivery: [...state.delivery, payload],
+      };
     },
 
     clearDelivery: (state) => {
       // Add logic to clear user-related data when logging out
       return { ...state, delivery: [] };
     },
-
   },
 });
 
 export const { addDelivery, clearDelivery } = deliverySlice.actions;
-export default deliverySlice;
+export default deliverySlice.reducer;

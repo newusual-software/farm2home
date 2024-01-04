@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { clearUser } from "../../../redux/user";
 import { Chip } from "@material-tailwind/react";
+import { clearDelivery } from "../../../redux/delivery";
 
 const DesktopNavigation = ({ navigationItems }) => {
   const [isCollapseOpen, setIsCollapseOpen] = useState(false);
@@ -42,6 +43,7 @@ const DesktopNavigation = ({ navigationItems }) => {
 
     // Clear Redux store using userSlice action
     dispatch(clearUser());
+    dispatch(clearDelivery());
     navigate("/");
     // Add additional logout logic if needed
   };

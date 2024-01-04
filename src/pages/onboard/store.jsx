@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
+
 import Breadcrumb from "../../components/molecule/breadcrumbs/breadcrumbs";
 import ProductItem from "../../components/products/productItem";
 import { STATIC_PRODUCTS } from "../../data/product/productList";
 import OnboardLayout from "../../layouts/onboardLayout";
 import useApiFetcher from "../../lib/hooks/useApiFetcher";
 import HomeAds from "../../components/ads/homeAds";
-import axios from "axios";
 
 
 const Store = () => {

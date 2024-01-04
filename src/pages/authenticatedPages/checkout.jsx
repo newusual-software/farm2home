@@ -1,15 +1,33 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { StepperWithContent } from "../../components/atoms/stepper/stepper";
 import DefaultLayout from "../../layouts/defaultLayout";
 import Delivery from "../../components/molecule/delivery/delivery";
 import { useSelector } from "react-redux";
 import AddressBook from "../../components/molecule/addressBook/addressBook";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@material-tailwind/react";
 
 export default function Checkout() {
-  // State to manage the selected status
-  const [status, setStatus] = useState("delivery"); // You can set the default value here
-  const {delivery} = useSelector((state) => state.delivery);
-  console.log(delivery);
+  const [status, setStatus] = useState("delivery");
+  const [estimatePrice, setEstimatePrice] = useState(null);
+  const [existingArray, setExistingArray] = useState([]);
+  const cart = useSelector((state) => state.cart.cart);
+  let navigate = useNavigate();
+
+  const getLocalStorageData = () => {
+    const existingData = localStorage.getItem("deliveryData");
+    return existingData ? JSON.parse(existingData) : [];
+  };
+
+  const handleDeliveryPrice = useCallback((estimatePrice) => {
+    setEstimatePrice(estimatePrice);
+  }, []);
+
+  useEffect(() => {
+    // Update existingArray when the component mounts
+    setExistingArray(getLocalStorageData());
+  }, []);
+
   return (
     <DefaultLayout>
       <div className="text-black text-[40px] text-center my-3 font-bold font-workSans">
@@ -75,13 +93,76 @@ export default function Checkout() {
           </div>
           <div
             className={
-              status === "delivery"
-                ? "peer-checked/delivery:block  "
-                : "hidden"
+              status === "delivery" ? "peer-checked/delivery:block  " : "hidden"
             }
           >
-            {delivery === null ? <Delivery /> : <AddressBook/>}
+            {existingArray.length < 1 ? (
+              <Delivery
+                onDeliveryPriceChange={handleDeliveryPrice}
+              />
+            ) : (
+              <AddressBook
+                handleDeliveryPrice={handleDeliveryPrice}
+              />
+            )}
           </div>
+        </div>
+        <div className="w-1/2 rounded-md bg-white shadow p-4 ">
+          <div className="flex border-b border-[#7E7E7E] pt-3 pb-1 justify-between items-center">
+            <div className="text-black text-[22px] font-medium font-workSans">
+              Order Summary
+            </div>
+            <div className="pr-2 text-black text-xl font-medium font-workSans tracking-tight">
+              {cart.length > 0 ? <span>({cart.length})</span> : null} items
+            </div>
+          </div>
+          <div className="mt-5 flex border-b border-[#7E7E7E] pt-3 pb-1 justify-between items-center">
+            <div className="text-[#7E7E7E] text-[20px] font-medium font-workSans">
+              SubTotal:
+            </div>
+            <div className="text-black text-xl font-medium font-workSans">
+              &#8358;
+              {cart.reduce(
+                (total, item) =>
+                  total + item.productPrice * item.productQuantity,
+                0
+              )}
+            </div>
+          </div>
+          <div className="mt-5 flex border-b border-[#7E7E7E] pt-3 pb-1 justify-between items-center">
+            <div className="text-[#7E7E7E] text-[20px] font-medium font-workSans">
+              Total:
+            </div>
+            <div className="text-black text-xl font-medium font-workSans">
+              &#8358;
+              {cart.reduce(
+                (total, item) =>
+                  total + item.productPrice * item.productQuantity,
+                0
+              ) + (estimatePrice || 0)}
+            </div>
+          </div>
+          {estimatePrice === null || estimatePrice === undefined ? (
+            <>
+              <div className="text-mainGreen flex justify-end items-center mt-10 text-xl font-medium font-workSans">
+                No Delivery Charges
+              </div>{" "}
+              <Button
+                className="mt-4 w-full "
+                onClick={() => navigate("/checkout")}
+                disabled
+              >
+                Checkout
+              </Button>{" "}
+            </>
+          ) : (
+            <Button
+              className="mt-4 w-full "
+              onClick={() => navigate("/checkout")}
+            >
+              Checkout
+            </Button>
+          )}
         </div>
       </div>
     </DefaultLayout>
