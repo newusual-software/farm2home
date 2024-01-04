@@ -6,7 +6,7 @@ export const STATIC_PRODUCTS = [
     product_name: "Egg",
     product_des: "Lorem ipsum dolor sit amet consectetur.",
     product_price: 2000,
-    initialRating: 5,
+    product_rate: 5,
     product_image:
       "https://res.cloudinary.com/phantom1245/image/upload/v1700385831/farm2home/Frame_24_yqkdmi.png",
   },
@@ -16,7 +16,7 @@ export const STATIC_PRODUCTS = [
     product_name: "rice",
     product_des: "Lorem ipsum dolor sit amet consectetur.",
     product_price: 1000,
-    initialRating: 5,
+    product_rate: 5,
     product_image:
       "https://res.cloudinary.com/phantom1245/image/upload/v1700385824/farm2home/Frame_24_1_pksmwl.png",
   },
@@ -26,7 +26,7 @@ export const STATIC_PRODUCTS = [
     product_name: "green beans",
     product_des: "Lorem ipsum dolor sit amet consectetur.",
     product_price: 20.0,
-    initialRating: 5,
+    product_rate: 5,
     product_image:
       "https://res.cloudinary.com/phantom1245/image/upload/v1700385834/farm2home/Frame_24_2_nutlye.png",
   },
@@ -36,7 +36,7 @@ export const STATIC_PRODUCTS = [
     product_name: "green peas",
     product_des: "Lorem ipsum dolor sit amet consectetur.",
     product_price: 20.0,
-    initialRating: 5,
+    product_rate: 5,
     product_image:
       "https://res.cloudinary.com/phantom1245/image/upload/v1700385829/farm2home/Frame_24_3_cfkadg.png",
   },
@@ -46,7 +46,7 @@ export const STATIC_PRODUCTS = [
     product_name: "Potatoes",
     product_des: "Lorem ipsum dolor sit amet consectetur.",
     product_price: 200,
-    initialRating: 5,
+    product_rate: 5,
     product_image:
       "https://res.cloudinary.com/phantom1245/image/upload/v1700385832/farm2home/Frame_24_4_bnyngc.png",
   },
@@ -56,7 +56,7 @@ export const STATIC_PRODUCTS = [
     product_name: "yam",
     product_des: "Lorem ipsum dolor sit amet consectetur.",
     product_price: 2000,
-    initialRating: 5,
+    product_rate: 5,
     product_image:
       "https://res.cloudinary.com/phantom1245/image/upload/v1700385820/farm2home/Frame_24_5_ysdiun.png",
   },
@@ -66,7 +66,7 @@ export const STATIC_PRODUCTS = [
     product_name: "eggs",
     product_des: "Lorem ipsum dolor sit amet consectetur.",
     product_price: 20.0,
-    initialRating: 5,
+    product_rate: 5,
     product_image:
       "https://res.cloudinary.com/phantom1245/image/upload/v1700385831/farm2home/Frame_24_yqkdmi.png",
   },
@@ -77,7 +77,7 @@ export const STATIC_PRODUCTS = [
     product_name: "potatoes",
     product_des: "Lorem ipsum dolor sit amet consectetur.",
     product_price: 20.0,
-    initialRating: 5,
+    product_rate: 5,
     product_image:
       "https://res.cloudinary.com/phantom1245/image/upload/v1700385822/farm2home/Frame_24_6_hipkcc.png",
   },
@@ -87,7 +87,7 @@ export const STATIC_PRODUCTS = [
     product_name: "Tomatoes",
     product_des: "Lorem ipsum dolor sit amet consectetur.",
     product_price: 20.0,
-    initialRating: 5,
+    product_rate: 5,
     product_image:
       "https://res.cloudinary.com/phantom1245/image/upload/v1700385826/farm2home/Frame_24_7_puwef0.png",
   },
@@ -97,7 +97,7 @@ export const STATIC_PRODUCTS = [
     product_name: "chili pepper",
     product_des: "Lorem ipsum dolor sit amet consectetur.",
     product_price: 20.0,
-    initialRating: 5,
+    product_rate: 5,
     product_image:
       "https://res.cloudinary.com/phantom1245/image/upload/v1700385827/farm2home/Frame_24_9_r1na7t.png",
   },
@@ -107,7 +107,7 @@ export const STATIC_PRODUCTS = [
     product_name: "spring onions",
     product_des: "Lorem ipsum dolor sit amet consectetur.",
     product_price: 20.0,
-    initialRating: 5,
+    product_rate: 5,
     product_image:
       "https://res.cloudinary.com/phantom1245/image/upload/v1700385834/farm2home/Frame_24_10_vxbfih.png",
   },
@@ -117,7 +117,7 @@ export const STATIC_PRODUCTS = [
     product_name: "veggies",
     product_des: "Lorem ipsum dolor sit amet consectetur.",
     product_price: 20.0,
-    initialRating: 5,
+    product_rate: 5,
     product_image:
       "https://res.cloudinary.com/phantom1245/image/upload/v1700385826/farm2home/Frame_24_8_u1bgwf.png",
   },
@@ -127,7 +127,7 @@ export const STATIC_PRODUCTS = [
     product_name: "Tomatoes Soup",
     product_des: "Lorem ipsum dolor sit amet consectetur.",
     product_price: 20.0,
-    initialRating: 5,
+    product_rate: 5,
     product_image:
       "https://res.cloudinary.com/phantom1245/image/upload/v1700385819/farm2home/Frame_24_11_qsktsz.png",
   },
@@ -137,7 +137,7 @@ export const STATIC_PRODUCTS = [
     product_name: "potatoes",
     product_des: "Lorem ipsum dolor sit amet consectetur.",
     product_price: 20.0,
-    initialRating: 5,
+    product_rate: 5,
     product_image:
       "https://res.cloudinary.com/phantom1245/image/upload/v1700385831/farm2home/Frame_24_yqkdmi.png",
   },
@@ -147,7 +147,7 @@ export const STATIC_PRODUCTS = [
     product_name: "potatoes",
     product_des: "Lorem ipsum dolor sit amet consectetur.",
     product_price: 20.0,
-    initialRating: 5,
+    product_rate: 5,
     product_image:
       "https://res.cloudinary.com/phantom1245/image/upload/v1700385831/farm2home/Frame_24_yqkdmi.png",
   },
@@ -157,7 +157,7 @@ export const STATIC_PRODUCTS = [
     product_name: "potatoes",
     product_des: "Lorem ipsum dolor sit amet consectetur.",
     product_price: 20.0,
-    initialRating: 5,
+    product_rate: 5,
     product_image:
       "https://res.cloudinary.com/phantom1245/image/upload/v1700385831/farm2home/Frame_24_yqkdmi.png",
   },
