@@ -1,92 +1,77 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import DefaultLayout from "../../layouts/defaultLayout";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { ImagePlacehoderSkeleton } from "../../components/skeleton/imagePlacehoderSkeleton";
 import { Button } from "@material-tailwind/react";
-import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart,
   incrementQuantity,
   decrementQuantity,
 } from "../../redux/cart";
+import { fetchProductById, fetchRelatedProducts } from "../../redux/productSlice";
 import { data } from "../../data/product/data";
 
+
 export default function ProductDescription() {
-  const [product, setProduct] = useState({});
-  const [productcat, setProductcat] = useState("");
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // Redux state
+  const  {product, isLoading}  = useSelector((state) => state.product);
+  const  {relatedProduct, loading}  = useSelector((state) => state.relatedProduct);
+  const { cart } = useSelector((state) => state.cart);
+
   const [relatedProducts, setRelatedProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [formattedDateWithSuffix, setFormattedDateWithSuffix] = useState("");
   const [active, setActive] = useState("");
   const [showQuantityDiv, setShowQuantityDiv] = useState(false);
   const quantity = 1;
 
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const {cart} = useSelector((state) => state.cart);
+  useEffect(() => {
+    dispatch(fetchProductById(id));
+    // Additional logic if needed for related products
+  }, [dispatch, id]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Make a GET request using Axios
-        const response = await axios.get(
-          `https://farm2home.cyclic.app/product/get/${id}`
-        );
+    if (product.product_cat) {
+      dispatch(fetchRelatedProducts(product.product_cat));
+    }
+  }, [dispatch, product.product_cat]);
 
-        // Assuming the API response contains the product data
-        setProduct(response.data.product);
-        setProductcat(response.data.product.product_cat);
-        setIsLoading(false);
 
-        if (Object.keys(response.data.product).length !== 0) {
-          const date = new Date(response.data.product.createdAt);
-
-          const options = {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          };
-
-          const formattedDate = new Intl.DateTimeFormat(
-            "en-US",
-            options
-          ).format(date);
-          setFormattedDateWithSuffix(formattedDate);
-        }
-      } catch (error) {
-        console.error("Error fetching product:", error);
-        setIsLoading(true);
-      }
-    };
-    const fetchAllData = async () => {
-      try {
-        // Make a GET request using Axios
-        const response = await axios.get(
-          `https://farm2home.cyclic.app/product`
-        );
-        let products = response.data;
-        if (products.length !== 0) {
-          // Filterout related products based on product_cat
-          setRelatedProducts(
-            response.data.filter((prod) => prod.product_cat === productcat)
-          );
-        }
-      } catch (error) {
-        console.error("Error fetching product:", error);
-        setIsLoading(true);
-      }
-    };
-    // Call the fetchData function when the component mounts
-    fetchData();
-    fetchAllData();
-  }, [id, product, productcat]);
+  useEffect(() => {
+    if (Object.keys(product).length !== 0) {
+      const date = new Date(product.createdAt);
   
+      const options = {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      };
+  
+      const formattedDate = new Intl.DateTimeFormat(
+        "en-US",
+        options
+      ).format(date);
+      setFormattedDateWithSuffix(formattedDate);
+    }
+    if (relatedProduct.length !== 0) {
+      // Filterout related products based on product_cat
+      setRelatedProducts(
+        relatedProduct.filter((prod) => prod.product_cat === product.product_cat)
+      );
+    }
+    console.log(relatedProducts)
+  }, [product.product_cat, product]);
+
   const item = cart.find((item) => item.productId === id);
+
   const handleClick = (index) => {
     navigate(`/product/${index}`);
   };
+
   const handleIncrement = () => {
     dispatch(incrementQuantity({ productId: id }));
   };
@@ -94,12 +79,13 @@ export default function ProductDescription() {
   const handleDecrement = () => {
     dispatch(decrementQuantity({ productId: id }));
   };
+
   return (
     <DefaultLayout>
       {product &&
       !isLoading &&
       Object.keys(product).length !== 0 &&
-      relatedProducts.length !== 0 ? (
+      relatedProducts.length !== 0 && !loading ? (
         <div className="py-12">
           <div className="w-[95%] bg-white mx-auto p-6 rounded-lg shadow flex flex-row gap-5">
             <div className="w-[65%] grid gap-4">
