@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
+import axios from "axios"; // Import Axios
 import { STATIC_PRODUCTS } from "../../data/product/productList";
-import useApiFetcher from "../../lib/hooks/useApiFetcher";
 import ProductItem from "../products/productItem";
 import { Link } from "react-router-dom";
 
@@ -21,18 +21,17 @@ export default function TabItem({ category }) {
     }
   };
 
-  const { data, error } = useApiFetcher(getApiUrl(category), {}, "GET");
-
   useEffect(() => {
-    let ignore = false;
-    const fetchData = async () => {
+    const fetchDataAndSetState = async () => {
+      const baseUrl = "https://farm2home.cyclic.app" || "";
+      const apiUrl = getApiUrl(category); // Fix: Use getApiUrl function
+      const url = `${baseUrl}/${apiUrl}`;
       try {
-        if (error) {
-          console.error(error);
-          setGeneralProduct(STATIC_PRODUCTS);
-        } else {
-          if (!ignore) setGeneralProduct(data || []);
-        }
+        const response = await axios.get(url); // Fix: Use the correct URL
+        const data = response.data;
+        
+        // Your logic to handle the data goes here
+        setGeneralProduct(data);
 
         setLoading(false);
       } catch (error) {
@@ -42,10 +41,8 @@ export default function TabItem({ category }) {
       }
     };
 
-    fetchData(); // Initial fetch
-
-    return () => { ignore = true }
-  }, [data, error, category]);
+    fetchDataAndSetState(); // Initial fetch
+  }, [category]);
 
   const groupedProducts = generalProduct.reduce((acc, product) => {
     const { product_cat } = product;
@@ -56,7 +53,7 @@ export default function TabItem({ category }) {
     acc[product_cat].push(product);
     return acc;
   }, {});
-  console.log(data)
+
   return (
     <>
       {loading && <Loader />}

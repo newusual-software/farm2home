@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthLayout from "../../layouts/authLayout";
-// import { postDataApi } from "../../lib/util/postApiUtils";
 import { useLoginUserMutation } from "../../services/api";
 import { addUser } from "../../redux/user";
 import { useDispatch } from "react-redux";
