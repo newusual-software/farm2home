@@ -1,8 +1,8 @@
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 
 export const userApi = createApi({
-  reducerPath: "productApi",
-  tagTypes: ["Product"],
+  reducerPath: "userApi",
+  tagTypes: ["User"],
   baseQuery: fetchBaseQuery({
     baseUrl: "https://farm2home.cyclic.app/",
   }),
@@ -19,13 +19,11 @@ export const userApi = createApi({
     // create user
     createUser: builder.mutation({
       query: (data) => ({
-        url: "/create",  
+        url: "/create",
         method: "POST",
         body: data,
       }),
     }),
-
-
   }),
 });
 
